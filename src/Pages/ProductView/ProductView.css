@@ -202,17 +202,38 @@
   display: flex;
   justify-content: flex-end;
   margin-right: 40px;
-  margin-top: 2vmax;
+  margin-top: 3vmax;
 }
 .back-btn > button {
-  background-color: transparent;
-  border-radius: 5px;
+  display: flex;
+  height: 3em;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee4b;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  transition: all 0.2s linear;
   cursor: pointer;
+  background: transparent;
+  border: 1px solid black;
 }
+
+.back-btn > button > svg {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 20px;
+  transition: all 0.4s ease-in;
+}
+
+.back-btn > button:hover > svg {
+  font-size: 1.2em;
+  transform: translateX(-5px);
+}
+
 .back-btn > button:hover {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
+  box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+  transform: translateY(-2px);
 }
 
 @media screen and (max-width: 600px) {

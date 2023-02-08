@@ -264,5 +264,18 @@ button.add-to-cart-btn:active::before {
   transform: translate3d(0, 0, -1em);
 }
 
-.shadow {
+.wrapper > h1 {
+  font-size: 80px;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 0;
+  line-height: 1;
+  font-weight: 700;
+  color: #382b22;
+}
+
+.dot {
+  border-radius: 60px;
+  border: brown 5px solid;
+  height: 5px;
+  display: inline-block;
 }

@@ -1,14 +1,14 @@
 import "./Loader.css";
-import Loading from "../../assets/images/loading-img.png";
+import Loading from "../../assets/images/loader.gif";
 const Loader = () => {
   return (
     <div className="main-loader">
       <div class="loader">
-        <ul>
+        {/* <ul>
           <li></li>
           <li></li>
           <li></li>
-        </ul>
+        </ul> */}
         {/* <div class="cup">
           <span></span>
         </div> */}
