@@ -1,0 +1,164 @@
+/* Header Css */
+
+.navbar {
+  padding: 10px;
+  background-color: antiquewhite;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: black;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show > .nav-link,
+.des_filter ul li a:hover {
+  color: white;
+  background: tomato;
+}
+.custom-login:hover {
+  color: white;
+  background: tomato;
+}
+.custom-login {
+  color: black;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+#navbarSupportedContent .dropdown:hover > .dropdown-menu,
+#navbarSupportedContent .dropend:hover > .dropdown-menu {
+  display: block;
+  margin-top: 0.125em;
+  margin-left: 0.125em;
+}
+
+#navbarSupportedContent .dropend .dropdown-toggle::after {
+  margin-left: 0.5em;
+  font-size: 19px;
+  transform: rotate(90deg);
+  transition: transform 0.2s;
+}
+
+#navbarSupportedContent .dropend .dropdown-toggle:hover::after {
+  transform: rotate(-90deg);
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu,
+#navbarSupportedContent .dropend:hover > .dropdown-menu {
+  padding: 5px;
+  margin-left: 9px;
+  border: none;
+  box-shadow: 0 4px 6px rgb(128, 128, 128) !important;
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu li {
+  border-bottom: 1px solid rgb(223 220 220);
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu li:last-child {
+  border-bottom: unset;
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu li .dropdown-item {
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+#navbarSupportedContent
+  .dropend
+  ul.dropdown-menu
+  li:first-child
+  .dropdown-item {
+  margin: 0 0 5px 0;
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu li:last-child .dropdown-item {
+  margin: 5px 0 0 0;
+}
+
+#navbarSupportedContent .dropend ul.dropdown-menu li .dropdown-item:hover,
+#navbarSupportedContent .dropend ul.dropdown-menu li .dropdown-item.active {
+  background-color: #172145;
+  color: #ffffff;
+}
+
+#navbarSupportedContent .navbar-nav li:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  align-self: unset !important;
+}
+
+#navbarSupportedContent .logout-btn {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  /* box-shadow: 0 4px 6px rgb(255 255 255) !important; */
+}
+
+#navbarSupportedContent .logout-btn:hover {
+  box-shadow: none !important;
+}
+
+#navbarSupportedContent .profile-pic {
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 13px;
+  margin-right: 4px;
+}
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-lg,
+.navbar > .container-md,
+.navbar > .container-sm,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  background-color: #5c3996;
+  color: white;
+  font-size: 8px;
+  border-radius: 20px;
+  height: 13px;
+  position: relative;
+  top: -15px;
+  width: fit-content;
+}
+
+@media (max-width: 992px) {
+  #navbarSupportedContent .navbar-nav li:last-child {
+    margin-left: 12px;
+    margin-top: 5px;
+  }
+
+  #navbarSupportedContent .navbar-nav .dropdown-menu li:last-child {
+    margin-left: unset;
+  }
+
+  #navbarSupportedContent .dropend ul.dropdown-menu,
+  #navbarSupportedContent .dropend:hover > .dropdown-menu {
+    box-shadow: unset !important;
+  }
+}

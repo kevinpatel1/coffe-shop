@@ -1,0 +1,38 @@
+.main-loader {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+@keyframes wave {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+.loader ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 60px;
+  text-align: center;
+  animation: wave 2.5s infinite linear;
+  animation-fill-mode: forwards;
+}
+.loader li {
+  display: inline-block;
+  background: rgb(228, 132, 6);
+  height: 30px;
+  width: 7px;
+  border-radius: 0 100%;
+  transform: rotate(12deg);
+}

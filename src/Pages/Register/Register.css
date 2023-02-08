@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500&display=swap");
+
+:root {
+  --bodybg: #dcdefe;
+  --primary-color: #5138ee;
+  --grey: #d6d6d6;
+  --placeholder: #969696;
+  --white: #fff;
+  --text: #333;
+  --slider-bg: #eff3ff;
+  --register-cta-hover: #1f0098;
+}
+
+.register-container {
+  display: flex;
+  max-width: 1122px;
+
+  margin: auto;
+  width: 100%;
+  min-width: 320px;
+}
+
+.register-container .logo svg {
+  height: 40px;
+  width: 40px;
+  fill: var(--primary-color);
+}
+
+.register-container .register-form {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px 45px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.register-container .register-form .register-form-inner {
+  max-width: 380px;
+  width: 95%;
+}
+
+.register-container .register-form .google-register-button .google-icon svg {
+  height: 20px;
+  display: flex;
+  margin-right: 10px;
+}
+
+.register-container .register-form .google-register-button {
+  color: var(--text);
+  border: 1px solid var(--grey);
+  margin: 40px 0 20px;
+}
+
+.register-container .register-form .sign-in-seperator {
+  text-align: center;
+  position: relative;
+  margin: 30px 0 20px;
+}
+
+.register-container .register-form .sign-in-seperator span {
+  z-index: 1;
+  position: relative;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+.register-container .register-form .register-form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+}
+
+.register-container .register-form .register-form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.register-container .register-form .register-form-group input {
+  padding: 13px 20px;
+  box-sizing: border-box;
+  border: 1px solid var(--grey);
+  border-radius: 50px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  transition: linear 0.2s;
+}
+
+.register-container .register-form .register-form-group input:focus {
+  outline: none;
+  border: 1px solid var(--primary-color);
+}
+
+.register-container
+  .register-form
+  .register-form-group
+  input::-webkit-input-placeholder {
+  color: var(--placeholder);
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.register-container .register-form .register-form-group.single-row {
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 5px;
+}
+
+/* custom checkbox */
+.register-container .register-form .custom-check input[type="checkbox"] {
+  height: 23px;
+  width: 23px;
+  margin: 0;
+  padding: 0;
+  opacity: 1;
+  appearance: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 3px;
+  background: var(--white);
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.register-container
+  .register-form
+  .custom-check
+  input[type="checkbox"]:checked {
+  border: 2px solid var(--primary-color);
+  background: var(--primary-color);
+}
+
+.register-container
+  .register-form
+  .custom-check
+  input[type="checkbox"]:checked:before,
+.register-container
+  .register-form
+  .custom-check
+  input[type="checkbox"]:checked:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  background: var(--white);
+}
+
+.register-container
+  .register-form
+  .custom-check
+  input[type="checkbox"]:checked:before {
+  width: 8px;
+  top: 11px;
+  left: 2px;
+  transform: rotate(44deg);
+}
+
+.register-container
+  .register-form
+  .custom-check
+  input[type="checkbox"]:checked:after {
+  width: 14px;
+  top: 8px;
+  left: 5px;
+  transform: rotate(-55deg);
+}
+
+.register-container .register-form .custom-check input[type="checkbox"]:focus {
+  outline: none;
+}
+
+.register-container .register-form .custom-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-container .register-form .custom-check label {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.register-container .register-form .link {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.register-container .register-form .link:hover {
+  text-decoration: underline;
+}
+
+.register-container .register-form .register-cta {
+  color: var(--white);
+  text-decoration: none;
+  border: 1px solid var(--primary-color);
+  margin: 25px 0 35px;
+  background: var(--primary-color);
+}
+
+.register-container .register-form .register-cta:hover {
+  background: var(--register-cta-hover);
+}
+
+.register-container .onboarding {
+  flex: 1;
+  display: none;
+  width: 50%;
+}
+
+.register-container .register-form .register-form-group label .required-star {
+  color: var(--primary-color);
+  font-size: 18px;
+  line-height: 10px;
+}
+
+.register-container .rounded-button {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  text-decoration: none;
+  border-radius: 50px;
+  padding: 13px 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+  transition: linear 0.2s;
+}
+
+.register-container .rounded-button:hover {
+  box-shadow: 0px 0px 4px 0px var(--grey);
+}
+
+.register-container .body-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.register-container .onboarding .swiper-container {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.register-container .onboarding .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text);
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.register-container .onboarding .swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+}
+
+.register-container .onboarding .swiper-slide {
+  flex-direction: column;
+  display: flex;
+}
+.swiper-wrapper {
+  padding: 20px;
+}
+.register-container .onboarding .swiper-slide .slide-image img {
+  width: 100%;
+  height: 585px;
+}
+.register-container .onboarding .slide-content {
+  width: 60%;
+}
+
+.register-container .onboarding .slide-content h2 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.register-container .onboarding .slide-content p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 300;
+}
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+  .register-container .onboarding {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .register-container {
+    height: 100vh;
+  }
+}
+
+@media screen and (width: 768px) {
+  .register-container .onboarding {
+    order: 0;
+  }
+  .register-container .register-form {
+    order: 1;
+  }
+  .register-container {
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .register-container .register-form {
+    padding: 20px;
+  }
+  .register-container .register-form-group {
+    margin-bottom: 16px;
+  }
+  .register-container {
+    margin: 0;
+  }
+}

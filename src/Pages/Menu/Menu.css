@@ -1,0 +1,55 @@
+.search-box {
+  padding: 50px auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.form-control {
+  border-radius: 20px !important;
+  background-color: transparent;
+  border-color: black;
+}
+
+.form-group {
+  margin: 0px !important;
+  padding-bottom: 1rem;
+}
+
+.custom-menu-col > button {
+  cursor: pointer;
+  width: 150px;
+  margin: 10px;
+  font-size: 18px;
+  background-color: transparent;
+  border-radius: 12px;
+  color: rgb(5, 1, 1);
+}
+
+.custom-menu-col > button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.5s all;
+}
+
+.activeState > button {
+  color: white;
+  background-color: tomato;
+}
