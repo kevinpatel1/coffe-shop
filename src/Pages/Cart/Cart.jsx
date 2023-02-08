@@ -29,7 +29,7 @@ const Cart = () => {
           <div class="row">
             <div class="col-md-12">
               <div class="card-empty">
-                <div class="card-body cart-empty">
+                <div class="card-body-empty cart-empty">
                   <div class="col-sm-12 empty-cart-cls text-center">
                     <img
                       src="https://i.imgur.com/dCdflKN.png"
