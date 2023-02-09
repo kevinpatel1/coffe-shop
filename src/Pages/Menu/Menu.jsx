@@ -1,208 +1,8 @@
 import "./Menu.css";
 
-import Robusta from "../../assets/images/products/Robusta.jpg";
-import Espresso from "../../assets/images/products/Espresso.jpg";
-import Mocha from "../../assets/images/products/Mocha.jpg";
 import ProductCard from "./ProductCard/ProductCard";
 import { useCallback, useEffect, useState } from "react";
-
-const productsData = [
-  {
-    id: "01",
-    name: "Robusta",
-    description: "abcscscsc",
-    images: Robusta,
-    price: 1000,
-    category: "coffeeBeans",
-  },
-  {
-    id: "02",
-    name: "Stovetop Espresso Makers",
-    description: "Stovetop Espresso Makers",
-    images: Espresso,
-    price: 1090,
-    category: "coffeeFilters",
-  },
-  {
-    id: "03",
-    name: "Mocha",
-    description: "Mocha",
-    images: Mocha,
-    price: 1050,
-    category: "coffeeFilters",
-  },
-  {
-    id: "04",
-    name: "Instant Coffee",
-    description: "Instant Coffee",
-    images: Robusta,
-    price: 0,
-    category: "coffee",
-  },
-  {
-    id: "05",
-    name: "Ground Coffee",
-    description: "Ground Coffee",
-    images: Espresso,
-    price: 0,
-    category: "coffee",
-  },
-  {
-    id: "06",
-    name: "South Indian Filter Coffee",
-    description: "South Indian Filter Coffee",
-    images: Mocha,
-    price: 0,
-    category: "coffee",
-  },
-  {
-    id: "07",
-    name: "Decaf",
-    description: "Decaf",
-    images: "",
-    price: 0,
-    category: "coffee",
-  },
-  {
-    id: "08",
-    name: "Arabica",
-    description: "Arabica",
-    images: "",
-    price: 0,
-    category: "coffeeBeans",
-  },
-  {
-    id: "09",
-    name: "Green coffee Beans",
-    description: "Green coffee Beans",
-    images: "",
-    price: 0,
-    category: "coffeeBeans",
-  },
-  {
-    id: "10",
-    name: "Coffee Bean Grinders",
-    description: "Coffee Bean Grinders",
-    images: "",
-    price: 0,
-    category: "coffeeGear",
-  },
-  {
-    id: "11",
-    name: "Manual Grinders",
-    description: "Manual Grinders",
-    images: "",
-    price: 0,
-    category: "coffeeGear",
-  },
-  {
-    id: "12",
-    name: "Electric Grinders",
-    description: "Electric Grinders",
-    images: "",
-    price: 0,
-    category: "coffeeGear",
-  },
-  {
-    id: "13",
-    name: "Paper Coffee Filters",
-    description: "Paper Coffee Filters",
-    images: "",
-    price: 0,
-    category: "coffeeFilters",
-  },
-  {
-    id: "14",
-    name: "South Indian Filter Coffee Makers",
-    description: "South Indian Filter Coffee Makers",
-    images: "",
-    price: 0,
-    category: "coffeeFilters",
-  },
-  {
-    id: "15",
-    name: "French Press Coffee Makers",
-    description: "French Press Coffee Makers",
-    images: "",
-    price: 0,
-    category: "coffeeFilters",
-  },
-  {
-    id: "16",
-    name: "Milk Frothers",
-    description: "Milk Frothers",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "17",
-    name: "Carafes",
-    description: "Carafes",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "18",
-    name: "Stencils",
-    description: "Stencils",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "19",
-    name: "Powder Sprinklers ",
-    description: "Powder Sprinklers ",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "20",
-    name: "Milk Pitchers",
-    description: "Milk Pitchers",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "21",
-    name: "Kettles",
-    description: "Kettles",
-    images: "",
-    price: 0,
-    category: "brewingAccessories",
-  },
-  {
-    id: "22",
-    name: "",
-    description: "",
-    images: "",
-    price: 0,
-    category: "mugs",
-    comingSoon: true,
-  },
-  {
-    id: "23",
-    name: "",
-    description: "",
-    images: "",
-    price: 0,
-    category: "gifting",
-    comingSoon: true,
-  },
-  {
-    id: "24",
-    name: "",
-    description: "",
-    images: "",
-    price: 0,
-    category: "baristaToolKits",
-    comingSoon: true,
-  },
-];
+import { productsData } from "../../Helper/_helper";
 
 const Menu = () => {
   const [products, setProducts] = useState(productsData);
@@ -224,13 +24,14 @@ const Menu = () => {
         filteredRows.push({ ...et });
       }
     });
-    setProducts(filteredRows);
+    setFilterProductData(filteredRows);
   }, []);
 
   useEffect(() => {
     if (products || filterState) {
       let filteredData = products?.filter((er) => er?.category === filterState);
       setFilterProductData(filteredData);
+      setSearch("");
     }
   }, [products, filterState]);
 

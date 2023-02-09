@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="home_div">
       <div className="container p-0 m-0 " style={{ maxWidth: "100%" }}>
-        <div className="row ">
+        <div className="row justify-content-center align-items-center ">
           <div className="col custom-home-div p-0 m-0 ">
             <img
               className=" LandingLogo3 img-fluid"
@@ -133,7 +133,7 @@ const Home = () => {
           <h1>Explore Our</h1>
           <h1>Menu</h1>
 
-          <button onClick={() => navigate("/menu")} class="cta mt-5">
+          <button onClick={() => navigate("/menu")} class="cta mt-5 ">
             <span class="hover-underline-animation"> View More </span>
             <svg
               viewBox="0 0 46 16"

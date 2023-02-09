@@ -243,6 +243,7 @@
   font-size: 14px;
   padding-right: 15px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .cta svg {
@@ -303,7 +304,15 @@
   transition-delay: 0.2s;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
+  .heading_div > h1 {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .heading_div > h1 {
+    font-size: 15px;
+  }
 }
 @media screen and (max-width: 600px) {
   .custom_menu_machine > h1 {
