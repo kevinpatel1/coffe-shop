@@ -304,6 +304,9 @@
   transition-delay: 0.2s;
 }
 
+.animate-ex {
+}
+
 @media screen and (max-width: 700px) {
   .heading_div > h1 {
     font-size: 20px;

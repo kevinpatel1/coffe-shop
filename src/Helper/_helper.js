@@ -2,6 +2,7 @@ import Robusta from "../assets/images/products/Robusta.jpg";
 import Espresso from "../assets/images/products/Espresso.jpg";
 import Mocha from "../assets/images/products/Mocha.jpg";
 import FrenchPress from "../assets/images/products/FrenchPress.jpg";
+import ComingSoon from "../assets/images/products/coming-soon.jpg";
 import CoffeeFilterPaper from "../assets/images/products/CoffeeFilterPaper.jpg";
 import MilkFrothersCoffee from "../assets/images/products/milk-frothers-coffee.jpg";
 import GreenCoffeeBeans from "../assets/images/products/GreenCoffeeBeans.jpg";
@@ -27,22 +28,22 @@ export const productsData = [
     price: 1000,
     category: "coffeeBeans",
   },
-  {
-    id: "02",
-    name: "Stovetop Espresso Makers",
-    description: "Stovetop Espresso Makers",
-    images: StovetopEspressoMaker,
-    price: 1090,
-    category: "coffeeFilters",
-  },
-  {
-    id: "03",
-    name: "Mocha",
-    description: "Mocha",
-    images: Mocha,
-    price: 1050,
-    category: "coffeeFilters",
-  },
+  // {
+  //   id: "02",
+  //   name: "Stovetop Espresso Makers",
+  //   description: "Stovetop Espresso Makers",
+  //   images: StovetopEspressoMaker,
+  //   price: 1090,
+  //   category: "coffeeFilters",
+  // },
+  // {
+  //   id: "03",
+  //   name: "Mocha",
+  //   description: "Mocha",
+  //   images: Mocha,
+  //   price: 1050,
+  //   category: "coffeeFilters",
+  // },
   {
     id: "04",
     name: "Instant Coffee",
@@ -121,31 +122,31 @@ export const productsData = [
     description: "Paper Coffee Filters",
     images: CoffeeFilterPaper,
     price: 0,
-    category: "coffeeFilters",
+    category: "coffeeGear",
   },
-  {
-    id: "14",
-    name: "South Indian Filter Coffee Makers",
-    description: "South Indian Filter Coffee Makers",
-    images: SouthIndianFilterCoffee,
-    price: 0,
-    category: "coffeeFilters",
-  },
-  {
-    id: "15",
-    name: "French Press Coffee Makers",
-    description: "French Press Coffee Makers",
-    images: FrenchPress,
-    price: 0,
-    category: "coffeeFilters",
-  },
+  // {
+  //   id: "14",
+  //   name: "South Indian Filter Coffee Makers",
+  //   description: "South Indian Filter Coffee Makers",
+  //   images: SouthIndianFilterCoffee,
+  //   price: 0,
+  //   category: "coffeeFilters",
+  // },
+  // {
+  //   id: "15",
+  //   name: "French Press Coffee Makers",
+  //   description: "French Press Coffee Makers",
+  //   images: FrenchPress,
+  //   price: 0,
+  //   category: "coffeeFilters",
+  // },
   {
     id: "16",
     name: "Milk Frothers",
     description: "Milk Frothers",
     images: MilkFrothersCoffee,
     price: 0,
-    category: "brewingAccessories",
+    category: "coffeeGear",
   },
   {
     id: "17",
@@ -153,7 +154,7 @@ export const productsData = [
     description: "Carafes",
     images: Carafes,
     price: 0,
-    category: "brewingAccessories",
+    category: "coffeeGear",
   },
   {
     id: "18",
@@ -161,16 +162,16 @@ export const productsData = [
     description: "Stencils",
     images: Stencils,
     price: 0,
-    category: "brewingAccessories",
+    category: "coffeeGear",
   },
-  {
-    id: "19",
-    name: "Powder Sprinklers ",
-    description: "Powder Sprinklers ",
-    images: PowderSprinklers,
-    price: 0,
-    category: "brewingAccessories",
-  },
+  // {
+  //   id: "19",
+  //   name: "Powder Sprinklers ",
+  //   description: "Powder Sprinklers ",
+  //   images: PowderSprinklers,
+  //   price: 0,
+  //   category: "brewingAccessories",
+  // },
 
   {
     id: "21",
@@ -178,15 +179,15 @@ export const productsData = [
     description: "Kettles",
     images: Espresso,
     price: 0,
-    category: "brewingAccessories",
+    category: "coffeeGear",
   },
   {
     id: "22",
-    name: "",
+    name: "Coofee Mugs",
     description: "",
-    images: "",
+    images: ComingSoon,
     price: 0,
-    category: "mugs",
+    category: "coffeeGear",
     comingSoon: true,
   },
   {
@@ -200,11 +201,11 @@ export const productsData = [
   },
   {
     id: "24",
-    name: "",
-    description: "",
-    images: "",
+    name: "Barista Tools Kits",
+    description: "Barista Tools Kits",
+    images: ComingSoon,
     price: 0,
-    category: "baristaToolKits",
+    category: "coffeeGear",
     comingSoon: true,
   },
 ];

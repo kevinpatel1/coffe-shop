@@ -12,7 +12,7 @@ const Header = () => {
   const { Carts } = useSelector((state) => state._todoProduct);
 
   const [navbarToggler, setNavbarToggler] = React.useState(false);
-
+  console.log(location?.pathname?.split("/")[2]);
   const hideHeaders = () => {
     if (location.pathname !== "/login") {
       return (
@@ -62,7 +62,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li class="nav-item">
-                    <Link
+                    {/* <Link
                       class={`nav-link ${
                         location?.pathname === "/menu" ||
                         location?.pathname === "/product"
@@ -72,7 +72,50 @@ const Header = () => {
                       to="/menu"
                     >
                       Menu
-                    </Link>
+                    </Link> */}
+                    <div class="dropdown">
+                      <p
+                        class={`nav-link dropbtn ${
+                          location?.pathname?.split("/")[1] === "menu"
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        Menu
+                      </p>
+                      <div class="dropdown-content">
+                        <Link
+                          className={`${
+                            location?.pathname?.split("/")[2] === "coffee"
+                              ? "dropdown-active"
+                              : ""
+                          }`}
+                          to={"/menu/coffee"}
+                        >
+                          Coffee{" "}
+                        </Link>
+                        <Link
+                          className={`${
+                            location?.pathname?.split("/")[2] === "coffeeBeans"
+                              ? "dropdown-active"
+                              : ""
+                          }`}
+                          to={"/menu/coffeeBeans"}
+                        >
+                          Coffee Beans
+                        </Link>
+                        <Link
+                          className={`${
+                            location?.pathname?.split("/")[2] === "coffeeGear"
+                              ? "dropdown-active"
+                              : ""
+                          }`}
+                          to={"/menu/coffeeGear"}
+                        >
+                          Coffee Gear
+                        </Link>
+                      </div>
+                    </div>
                   </li>
                   <li class="nav-item">
                     <Link

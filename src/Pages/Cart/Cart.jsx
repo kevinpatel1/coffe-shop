@@ -31,17 +31,20 @@ const Cart = () => {
               <div class="card-empty">
                 <div class="card-body-empty cart-empty">
                   <div class="col-sm-12 empty-cart-cls text-center">
-                    <img
+                    {/* <img
                       src="https://i.imgur.com/dCdflKN.png"
                       width="130"
                       height="130"
                       class="img-fluid mb-4 mr-3"
-                    />
+                    /> */}
                     <h3>
                       <strong>Your Cart is Empty</strong>
                     </h3>
                     <h4>Add something to make me happy </h4>
-                    <button onClick={() => navigate("/menu")} class="fancy">
+                    <button
+                      onClick={() => navigate("/menu/coffee")}
+                      class="fancy"
+                    >
                       <span class="top-key"></span>
                       <span class="text">Continue Shopping</span>
                       <span class="bottom-key-1"></span>

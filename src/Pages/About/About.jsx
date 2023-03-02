@@ -1,5 +1,5 @@
 import "./About.css";
-import AboutUs from "../../assets/images/about-us.jpg";
+import AboutUs from "../../assets/images/about-us.png";
 import landingSeparator from "../../assets/images/landing-separator-1.png";
 
 const About = () => {

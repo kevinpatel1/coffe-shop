@@ -3,8 +3,8 @@
 }
 
 .footer {
-  background-color: #004658;
-  color: #fff;
+  background-color: rgb(223 191 137);
+  color: black;
   font-family: Marcellus;
 }
 
@@ -35,11 +35,11 @@
   padding-left: 15px;
   padding-right: 15px;
   width: 100%;
-  color: #fff;
+  color: black;
 }
 
 .footer-content-column ul li a {
-  color: #fff;
+  color: black;
   text-decoration: none;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .footer-menu-name {
-  color: #fffff2;
+  color: black;
   font-size: 15px;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -79,7 +79,7 @@
 }
 
 .footer-call-to-action-description {
-  color: #fffff2;
+  color: black;
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -94,9 +94,9 @@
 }
 
 .footer-call-to-action-button {
-  background-color: #027b9a;
+  background-color: #996253;
   border-radius: 21px;
-  color: #fffff2;
+  color: white;
   display: inline-block;
   font-size: 11px;
   font-weight: 900;
@@ -116,7 +116,7 @@
 }
 
 .footer-call-to-action-title {
-  color: #fffff2;
+  color: black;
   font-size: 14px;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -156,7 +156,7 @@
 }
 
 .footer-social-amoeba-path {
-  fill: #027b9a;
+  fill: #996253;
 }
 
 .footer-social-link.linkedin {
@@ -226,7 +226,7 @@
 }
 
 .footer-copyright {
-  background-color: #027b9a;
+  background-color: black;
   color: #fff;
   padding: 15px 30px;
   text-align: center;

@@ -3,29 +3,42 @@ import "./Menu.css";
 import ProductCard from "./ProductCard/ProductCard";
 import { useCallback, useEffect, useState } from "react";
 import { productsData } from "../../Helper/_helper";
+import { useParams } from "react-router-dom";
 
 const Menu = () => {
+  const params = useParams();
+
   const [products, setProducts] = useState(productsData);
   const [search, setSearch] = useState();
-  const [filterState, setFilterState] = useState("coffee");
+  const [filterState, setFilterState] = useState(params?.categoryMenu);
   const [filterProductData, setFilterProductData] = useState([]);
 
-  const handleSearch = useCallback((e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-
-    const filteredRows = [];
-    (products || []).forEach((et) => {
-      if (
-        (et.name || "")
-          .toLowerCase()
-          .includes((e.target.value || "").toLowerCase())
-      ) {
-        filteredRows.push({ ...et });
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      setSearch(e.target.value);
+      if (e.target.value) {
+        const filteredRows = [];
+        console.log(filterProductData);
+        (filterProductData || []).forEach((et) => {
+          if (
+            (et.name || "")
+              .toLowerCase()
+              .includes((e.target.value || "").toLowerCase())
+          ) {
+            filteredRows.push({ ...et });
+          }
+        });
+        setFilterProductData(filteredRows);
+      } else {
+        let filteredData = products?.filter(
+          (er) => er?.category === filterState
+        );
+        setFilterProductData(filteredData);
       }
-    });
-    setFilterProductData(filteredRows);
-  }, []);
+    },
+    [filterProductData]
+  );
 
   useEffect(() => {
     if (products || filterState) {
@@ -68,7 +81,7 @@ const Menu = () => {
         </div>
       </div>
 
-      <div class="container">
+      {/* <div class="container">
         <div class="row justify-content-center align-items-center">
           <div
             class={`col custom-menu-col ${
@@ -178,7 +191,7 @@ const Menu = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div>
         <div className="container" id="container">

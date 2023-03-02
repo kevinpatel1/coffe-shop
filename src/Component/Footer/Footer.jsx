@@ -22,10 +22,10 @@ const Footer = () => {
           <div class="footer-content">
             <div class="footer-content-column">
               <div class="footer-logo">
-                <Link class="footer-logo-link" to={"/"}>
-                  𝚌𝚘𝚏𝚏𝚎𝚎 𝙶𝚊𝚋𝚕𝚎
-                </Link>
                 <img src={Logo} alt="logo" height={100} width={100} />
+                {/* <Link class="footer-logo-link" to={"/"}>
+                  𝚌𝚘𝚏𝚏𝚎𝚎 𝙶𝚊𝚋𝚕𝚎
+                </Link> */}
               </div>
               {/* <div class="footer-menu">
                 <h2 class="footer-menu-name"> Get Started</h2>

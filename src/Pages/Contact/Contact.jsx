@@ -81,7 +81,10 @@ const Contact = () => {
                 </div>
               </div>
               <div className="contact-us-btn d-flex align-items-center justify-content-center">
-                <button class=" w-25 rounded-button login-cta">
+                <button
+                  style={{ backgroundColor: "#996253" }}
+                  class=" w-25 rounded-button login-cta"
+                >
                   Send Message
                 </button>
               </div>

@@ -70,7 +70,7 @@ const ProductView = () => {
   return (
     <div>
       <div className="back-btn">
-        <button onClick={() => navigate("/menu")}>
+        <button onClick={() => navigate("/menu/coffee")}>
           <svg
             height="16"
             width="16"

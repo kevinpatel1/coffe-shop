@@ -2,13 +2,13 @@
 
 :root {
   --bodybg: #dcdefe;
-  --primary-color: #5138ee;
+  --primary-color: #996253;
   --grey: #d6d6d6;
   --placeholder: #969696;
   --white: #fff;
   --text: #333;
   --slider-bg: #eff3ff;
-  --register-cta-hover: #1f0098;
+  --register-cta-hover: #9962539e;
 }
 
 .register-container {

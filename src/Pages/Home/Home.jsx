@@ -30,7 +30,10 @@ const Home = () => {
               <img className=" " src={landingSeparator} alt="LandingLogo3" />
               {/* <h2></h2> */}
 
-              <button onClick={() => navigate("/menu")} class="learn-more mt-5">
+              <button
+                onClick={() => navigate("/menu/coffee")}
+                class="learn-more mt-5"
+              >
                 <span class="circle" aria-hidden="true">
                   <span class="icon arrow"></span>
                 </span>
@@ -51,7 +54,7 @@ const Home = () => {
       </div>
 
       <div class="row " style={{ margin: 80, marginTop: 120 }}>
-        <div class="col" style={{ padding: 20 }}>
+        <div class="col animate-ex" style={{ padding: 20 }}>
           <div class="card custom_card" style={{ width: "18rem" }}>
             <h2>Robusto</h2>
             <img class="card-img-top" src={Robusta} alt="Robusta" />
@@ -122,7 +125,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div class="row " style={{ margin: 80, marginTop: 120 }}>
+      {/* <div class="row " style={{ margin: 80, marginTop: 120 }}>
         <div class="col img-cen ">
           <img src={Menu} class="img-fluid" alt="coffeeMachine" />{" "}
         </div>
@@ -133,7 +136,7 @@ const Home = () => {
           <h1>Explore Our</h1>
           <h1>Menu</h1>
 
-          <button onClick={() => navigate("/menu")} class="cta mt-5 ">
+          <button onClick={() => navigate("/menu/coffee")} class="cta mt-5 ">
             <span class="hover-underline-animation"> View More </span>
             <svg
               viewBox="0 0 46 16"
@@ -151,7 +154,7 @@ const Home = () => {
             </svg>
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

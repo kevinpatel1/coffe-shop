@@ -4,16 +4,16 @@ import { AddCart } from "../../../Store/actions";
 import "./ProductCard.css";
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  console.log(product);
   return (
     <>
-      {product?.comingSoon ? (
-        <div class="wrapper mt-5">
-          <h1>
-            coming soon<span class="dot"></span>
-          </h1>
-        </div>
-      ) : (
-        <div class="flip-card">
+      <div class="flip-card">
+        {product?.comingSoon ? (
+          <div class="flip-card-front">
+            <p>{product.name}</p>
+            <img src={product.images} alt={product.name} />
+          </div>
+        ) : (
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <p>{product.name}</p>
@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
               <div className="flip-card-back-btn-div">
                 <Link
                   to={{
-                    pathname: "/product",
+                    pathname: "/menu",
                   }}
                   state={product}
                 >
@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
                         stroke-linecap="round"
                         fill="none"
                         stroke-width="2"
-                        stroke="#ffd300"
+                        stroke="#fff"
                         height="20"
                         width="20"
                         viewBox="0 0 24 24"
@@ -85,8 +85,8 @@ const ProductCard = ({ product }) => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
