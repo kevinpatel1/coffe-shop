@@ -106,7 +106,10 @@ const Cart = () => {
                     </div>
                   ))}
                 </div>
-                <div class="back-to-shop" onClick={() => navigate("/menu")}>
+                <div
+                  class="back-to-shop"
+                  onClick={() => navigate("/menu/coffee")}
+                >
                   <AiOutlineArrowLeft style={{ width: 30 }} />
                   <span class="text-muted">Back to shop</span>
                 </div>

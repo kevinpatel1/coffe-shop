@@ -1,13 +1,12 @@
-import LandingLogo3 from "../../assets/images/landing-slider-image-3.png";
-import LandingLogo5 from "../../assets/images/landing-slider-image-5.png";
-import landingSeparator from "../../assets/images/landing-separator-1.png";
+import "./Home.css";
+import { useNavigate } from "react-router-dom";
+import coffeeMachine from "../../assets/images/products/coffee-machine.png";
 import Robusta from "../../assets/images/products/Robusta.jpg";
 import Espresso from "../../assets/images/products/Espresso.jpg";
 import Mocha from "../../assets/images/products/Mocha.jpg";
-import Menu from "../../assets/images/products/menu.jpg";
-import coffeeMachine from "../../assets/images/products/coffee-machine.png";
-import "./Home.css";
-import { useNavigate } from "react-router-dom";
+import LandingLogo3 from "../../assets/images/landing-slider-image-3.png";
+import LandingLogo5 from "../../assets/images/landing-slider-image-5.png";
+import landingSeparator from "../../assets/images/landing-separator-1.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ const Home = () => {
             <div className="heading_div">
               <h1>Good Day Begins With Coffee </h1>
               <img className=" " src={landingSeparator} alt="LandingLogo3" />
-              {/* <h2></h2> */}
 
               <button
                 onClick={() => navigate("/menu/coffee")}
@@ -53,11 +51,11 @@ const Home = () => {
         </div>
       </div>
 
-      <div class="row " style={{ margin: 80, marginTop: 120 }}>
+      <div class="row " style={{ marginTop: 120 }}>
         <div class="col animate-ex" style={{ padding: 20 }}>
-          <div class="card custom_card" style={{ width: "18rem" }}>
+          <div class="card custom_card">
             <h2>Robusto</h2>
-            <img class="card-img-top" src={Robusta} alt="Robusta" />
+            <img class="card-img-top img-fluid" src={Robusta} alt="Robusta" />
             <div class="card-body">
               <p class="card-text">
                 Despite its flavour being considered less refined, Robusta is
@@ -69,10 +67,15 @@ const Home = () => {
         </div>
         <div class="col" style={{ padding: 20 }}>
           {" "}
-          <div class="card custom_card" style={{ width: "18rem" }}>
+          <div class="card custom_card">
             <h2>Mocha</h2>
 
-            <img class="card-img-top" src={Mocha} height={150} alt="Mocha" />
+            <img
+              class="card-img-top  img-fluid"
+              src={Mocha}
+              height={150}
+              alt="Mocha"
+            />
             <div class="card-body">
               <p class="card-text">
                 Mocha is often interpreted differently across the world, the
@@ -83,11 +86,11 @@ const Home = () => {
           </div>
         </div>
         <div class="col" style={{ padding: 20 }}>
-          <div class="card custom_card" style={{ width: "18rem" }}>
+          <div class="card custom_card">
             <h2>Espresso</h2>
 
             <img
-              class="card-img-top"
+              class="card-img-top  img-fluid"
               src={Espresso}
               height={150}
               alt="Espresso"
@@ -102,24 +105,25 @@ const Home = () => {
         </div>
       </div>
 
-      <div class="row " style={{ margin: 80, marginTop: 120 }}>
+      <div class="row " style={{ marginTop: 120 }}>
         <div class="col custom_coffee_machine">
-          <h1>Coffe Machine</h1>
+          <p className="h1">Coffe Machine</p>
 
-          <h2 style={{ marginTop: 80, fontSize: 40 }}>
+          <p className="h3" style={{ marginTop: 80 }}>
             Coffee Makes Everything Possible.
-          </h2>
-          <h4>
+          </p>
+          <p className="h5">
             {" "}
             One of the simplest methods to make great coffee is using one of our
             manual coffee makers.
-          </h4>
+          </p>
         </div>
         <div class="col-md-auto img-cen">
           <img
             src={coffeeMachine}
             height={400}
             width={400}
+            className="img-fluid"
             alt="coffeeMachine"
           />{" "}
         </div>

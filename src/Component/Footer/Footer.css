@@ -324,3 +324,16 @@
       width: 49.99%;
   } */
 }
+
+@media (min-width: 200px) and (max-width: 479px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+
+  .footer-content {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1230px;
+    padding: 40px 15px 1050px;
+    position: relative;
+  }
+}

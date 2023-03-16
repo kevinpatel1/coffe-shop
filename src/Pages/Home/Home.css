@@ -54,7 +54,7 @@
 .custom_card {
   height: 430px;
 
-  width: 18rem;
+  width: 18rem !important;
   border-radius: 20px !important;
   padding: 25px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
@@ -71,6 +71,7 @@
 
 .custom_coffee_machine {
   font-family: Marcellus;
+  text-align: center;
 }
 
 .custom_coffee_machine > h1 {
@@ -314,12 +315,50 @@
 }
 @media screen and (max-width: 450px) {
   .heading_div > h1 {
-    font-size: 15px;
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 600px) {
   .custom_menu_machine > h1 {
     font-size: 30px;
     line-height: 40px;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 359px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+
+  .card-text {
+    font-size: 12px;
+  }
+  .LandingLogo5 {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 350px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+
+  .custom_card {
+    width: 12rem !important;
+  }
+
+  .img-cen > img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .LandingLogo5 {
+    width: 200px;
+    height: 200px;
+  }
+  .LandingLogo3 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .heading_div > h1 {
+    font-size: 8px;
   }
 }

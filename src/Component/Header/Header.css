@@ -150,8 +150,8 @@
 
 @media (max-width: 992px) {
   #navbarSupportedContent .navbar-nav li:last-child {
-    margin-left: 12px;
-    margin-top: 5px;
+    /* margin-left: 12px;
+    margin-top: 5px; */
   }
 
   #navbarSupportedContent .navbar-nav .dropdown-menu li:last-child {
