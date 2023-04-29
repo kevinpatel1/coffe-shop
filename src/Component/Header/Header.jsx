@@ -81,7 +81,7 @@ const Header = () => {
                             : ""
                         }`}
                       >
-                        Menu
+                        Shop
                       </p>
                       <div class="dropdown-content">
                         <Link

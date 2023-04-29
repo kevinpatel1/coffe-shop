@@ -6,7 +6,12 @@ const About = () => {
   return (
     <div>
       <div class="">
-        <img src={AboutUs} height={400} width={"100%"} alt="contact-img" />
+        <img
+          src={AboutUs}
+          className="about-us-image"
+          width={"100%"}
+          alt="contact-img"
+        />
       </div>
       <div className="heading_div mt-4">
         <h1>About Us </h1>{" "}

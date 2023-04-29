@@ -25,7 +25,7 @@ const Home = () => {
           </div>
           <div className="col custom-home-div p-0 m-0">
             <div className="heading_div">
-              <h1>Good Day Begins With Coffee </h1>
+              <h1> A Good Day Begins With Coffee </h1>
               <img className=" " src={landingSeparator} alt="LandingLogo3" />
 
               <button

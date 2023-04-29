@@ -47,8 +47,8 @@ export const productsData = [
   {
     id: "04",
     name: "Instant Coffee",
-    description: InstantCoffee,
-    images: Robusta,
+    description: "InstantCoffee",
+    images: InstantCoffee,
     price: 0,
     category: "coffee",
   },
