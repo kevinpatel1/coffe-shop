@@ -20,14 +20,6 @@ import Stencils from "../assets/images/products/stencils.jpg";
 import StovetopEspressoMaker from "../assets/images/products/Stovetop-Espresso-Maker.jpg";
 
 export const productsData = [
-  {
-    id: "01",
-    name: "Robusta",
-    description: "abcscscsc",
-    images: Robusta,
-    price: 1000,
-    category: "coffeeBeans",
-  },
   // {
   //   id: "02",
   //   name: "Stovetop Espresso Makers",
@@ -82,6 +74,14 @@ export const productsData = [
     description: "Arabica",
     images: ArabicaCoffee,
     price: 0,
+    category: "coffeeBeans",
+  },
+  {
+    id: "01",
+    name: "Robusta",
+    description: "abcscscsc",
+    images: Robusta,
+    price: 1000,
     category: "coffeeBeans",
   },
   {

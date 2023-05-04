@@ -1,8 +1,8 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import coffeeMachine from "../../assets/images/products/coffee-machine.png";
-import Robusta from "../../assets/images/products/Robusta.jpg";
-import Espresso from "../../assets/images/products/Espresso.jpg";
+import Robusta from "../../assets/images/products/arabica-coffee.jpg";
+import Espresso from "../../assets/images/products/manual-coffee-grinders.jpg";
 import Mocha from "../../assets/images/products/Mocha.jpg";
 import LandingLogo3 from "../../assets/images/landing-slider-image-3.png";
 import LandingLogo5 from "../../assets/images/landing-slider-image-5.png";
@@ -25,7 +25,7 @@ const Home = () => {
           </div>
           <div className="col custom-home-div p-0 m-0">
             <div className="heading_div">
-              <h1> A Good Day Begins With Coffee </h1>
+              <h1> A Good Day Begins With Good Coffee </h1>
               <img className=" " src={landingSeparator} alt="LandingLogo3" />
 
               <button
@@ -54,13 +54,31 @@ const Home = () => {
       <div class="row " style={{ marginTop: 120 }}>
         <div class="col animate-ex" style={{ padding: 20 }}>
           <div class="card custom_card">
-            <h2>Robusto</h2>
-            <img class="card-img-top img-fluid" src={Robusta} alt="Robusta" />
+            <h2>Coffee</h2>
+            <img class="card-img-top img-fluid" src={Mocha} alt="Robusta" />
             <div class="card-body">
               <p class="card-text">
-                Despite its flavour being considered less refined, Robusta is
-                widely used in espresso blends.It is hardier, more resistant to
-                disease and produces better yields.
+                Coffee is a beverage prepared from roasted coffee beans. Darkly
+                colored, bitter, and slightly acidic, coffee has a stimulating
+                effect on humans.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col" style={{ padding: 20 }}>
+          <div class="card custom_card">
+            <h2>Cofee Beans</h2>
+
+            <img
+              class="card-img-top  img-fluid"
+              src={Robusta}
+              height={150}
+              alt="Espresso"
+            />
+            <div class="card-body">
+              <p class="card-text">
+                A coffee bean is a seed of the Coffea plant and the source for
+                coffee. It is the pip inside the red or purple fruit.{" "}
               </p>
             </div>
           </div>
@@ -68,37 +86,19 @@ const Home = () => {
         <div class="col" style={{ padding: 20 }}>
           {" "}
           <div class="card custom_card">
-            <h2>Mocha</h2>
-
-            <img
-              class="card-img-top  img-fluid"
-              src={Mocha}
-              height={150}
-              alt="Mocha"
-            />
-            <div class="card-body">
-              <p class="card-text">
-                Mocha is often interpreted differently across the world, the
-                basis is that a shot of espresso is combined with a chocolate
-                powder or syrup, followed by milk or cream.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col" style={{ padding: 20 }}>
-          <div class="card custom_card">
-            <h2>Espresso</h2>
+            <h2>Coffee Gear</h2>
 
             <img
               class="card-img-top  img-fluid"
               src={Espresso}
               height={150}
-              alt="Espresso"
+              alt="Mocha"
             />
             <div class="card-body">
               <p class="card-text">
-                Espresso is a shot of concentrated coffee, made by forcing very
-                hot water at a high pressure through finely-ground coffee beans.
+                Professional coffee machines come in 3 main types; espresso
+                coffee machines with coffee grinders, automatic bean to cup
+                coffee machines with grinders and milk foamers.
               </p>
             </div>
           </div>
