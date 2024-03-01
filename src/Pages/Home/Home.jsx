@@ -2,7 +2,7 @@ import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import coffeeMachine from "../../assets/images/products/coffee-machine.png";
 import Robusta from "../../assets/images/products/arabica-coffee.jpg";
-import Espresso from "../../assets/images/products/manual-coffee-grinders.jpg";
+import Espresso from "../../assets/images/products/gear4.jpeg";
 import Mocha from "../../assets/images/products/Mocha.jpg";
 import LandingLogo3 from "../../assets/images/landing-slider-image-3.png";
 import LandingLogo5 from "../../assets/images/landing-slider-image-5.png";

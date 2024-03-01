@@ -5,18 +5,18 @@ import FrenchPress from "../assets/images/products/FrenchPress.jpg";
 import ComingSoon from "../assets/images/products/coming-soon.jpg";
 import CoffeeFilterPaper from "../assets/images/products/CoffeeFilterPaper.jpg";
 import MilkFrothersCoffee from "../assets/images/products/milk-frothers-coffee.jpg";
-import GreenCoffeeBeans from "../assets/images/products/GreenCoffeeBeans.jpg";
+import GreenCoffeeBeans from "../assets/images/products/gear1.jpeg";
 import ArabicaCoffee from "../assets/images/products/arabica-coffee.jpg";
 import Carafes from "../assets/images/products/carafes.jpg";
 import CoffeeGrinderBeans from "../assets/images/products/coffee-grinder-beans.jpg";
 import DecafCoffee from "../assets/images/products/decaf-coffee.jpg";
-import ElectricGrinderCoffee from "../assets/images/products/electric-grinder-coffee.jpg";
+import ElectricGrinderCoffee from "../assets/images/products/gear3.jpeg";
 import GroundCoffee from "../assets/images/products/ground-coffee.jpg";
 import InstantCoffee from "../assets/images/products/instant-coffee.jpg";
-import ManualCoffeeGrinders from "../assets/images/products/manual-coffee-grinders.jpg";
+import ManualCoffeeGrinders from "../assets/images/products/gear2.jpeg";
 import PowderSprinklers from "../assets/images/products/Powder-Sprinklers.jpg";
 import SouthIndianFilterCoffee from "../assets/images/products/south-Indian-Filter-Coffee.jpg";
-import Stencils from "../assets/images/products/stencils.jpg";
+import Stencils from "../assets/images/products/gear4.jpeg";
 import StovetopEspressoMaker from "../assets/images/products/Stovetop-Espresso-Maker.jpg";
 
 export const productsData = [

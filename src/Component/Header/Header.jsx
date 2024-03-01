@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./Header.css";
-import Logo from "../../assets/images/landing-logo-img.png";
+import Logo from "../../assets/images/landing-logo-img.jpeg";
 import { GrCart } from "react-icons/gr";
 import { useSelector } from "react-redux";
 
