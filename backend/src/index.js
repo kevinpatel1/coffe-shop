@@ -25,8 +25,9 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.post(`${root}/register`, userController.userRegister);
 app.get(`${root}/verification/:token`, userController.verifyRegisterLink);
 app.post(`${root}/login`, userController.userLogin);
+app.post(`${root}/admin/login`, userController.adminUserLogin);
 
-app.use(`${root}`, verifyToken, route);
+app.use(`${root}`, route);
 app.get("/", (req, res) => {
   console.log("asdsad");
   res.send("Products Backend!");

@@ -10,8 +10,8 @@ module.exports = {
       expiresIn: "24 * 60 * 60",
     },
     mail: {
-      email: "dweep8850@gmail.com",
-      password: "gdnwlxqtwexuwywa",
+      email: "kevinwebmyne@gmail.com",
+      password: "zzmgzpokkrnlnylz",
     },
   },
 
@@ -19,7 +19,7 @@ module.exports = {
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "Kevin1810",
+    password: "1234",
     database: "coffeeshop",
   },
 

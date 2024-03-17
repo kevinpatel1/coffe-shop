@@ -1,0 +1,12 @@
+.progress-nav .nav .nav-link.disabled {
+    background-color: rgb(230, 224, 224) !important;
+    color: rgb(119, 118, 118) !important;
+}
+
+.progress-nav .nav .nav-link {
+    padding: 7px 11px;
+}
+
+.required_span {
+    color: red;
+}

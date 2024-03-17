@@ -1,0 +1,23 @@
+// 
+// breadcrumb.scss
+//
+
+
+// Breadcrumb item arrow
+.breadcrumb-item {
+    color: #E2592F !important;
+    font-weight: 600;
+
+    > a {
+        // color: var(--#{$variable-prefix}gray-700);
+        color: #E2592F !important;
+    }
+    +.breadcrumb-item {
+        &::before {
+            font-family: "Material Design Icons";
+            font-size: 15px;
+            line-height: 20px;
+        }
+    }
+}
+  

@@ -39,6 +39,9 @@ async function initialize() {
   db.Sequelize = Sequelize;
 
   db.userDetails = require("../models/userDetailsModel")(sequelize);
+  db.category = require("../models/categoryModel")(sequelize);
+  db.stock = require("../models/stockModel")(sequelize);
+  db.product = require("../models/productModel")(sequelize);
 
   await sequelize.sync().catch((err) => {
     console.log(
