@@ -16,10 +16,10 @@ module.exports = {
   },
 
   db: {
-    host: "118.139.180.148",
+    host: "localhost",
     port: "3306",
-    user: "coffeeshop",
-    password: "_6STOkaFm~1?",
+    user: "root",
+    password: "Kevin1810",
     database: "coffeeshop",
   },
 

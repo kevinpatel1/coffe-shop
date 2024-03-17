@@ -1,17 +1,50 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 import LoginImage from "../../assets/images/login-image.jpg";
+import { MyContext } from "../../hooks/MyContextProvider";
+import { loginUser } from "../../libs/api";
 import "./Login.css";
 function Login() {
+  const { addToast } = useToasts();
+  const { token, updateToken, updateUserDetails } = useContext(MyContext);
+
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
-    Password: "",
+    password: "",
   });
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userData = await loginUser(data);
+    if (userData.status) {
+      console.log("userData: ", userData);
+      updateToken(userData?.data?.token);
+      updateUserDetails(userData?.data?.userDetails);
+      navigate("/");
+      addToast("Login Successfully!", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+    } else {
+      addToast(userData.message, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate, token]);
 
   return (
     <div class="login-container">
@@ -37,6 +70,7 @@ function Login() {
             <input
               type="text"
               value={data.username}
+              name="username"
               onChange={handleChange}
               placeholder="email@website.com"
               id="email"
@@ -49,7 +83,8 @@ function Login() {
             <input
               autocomplete="off"
               type="text"
-              value={data.Password}
+              name="password"
+              value={data.password}
               onChange={handleChange}
               placeholder="Minimum 8 characters"
               id="pwd"
@@ -68,7 +103,7 @@ function Login() {
           </div>
 
           <button
-            onClick={() => navigate("/")}
+            onClick={(e) => handleSubmit(e)}
             class="rounded-button login-cta"
           >
             Login

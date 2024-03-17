@@ -7,6 +7,7 @@ module.exports = db = {};
 initialize();
 
 async function initialize() {
+  // create db if it doesn't already exist
   const { host, port, user, password, database } = config.db;
   const connection = await mysql.createConnection({
     host,
@@ -25,31 +26,24 @@ async function initialize() {
     // dialectOptions: {
     //   ssl: "Amazon RDS",
     // },
-
+    dialectOptions: {
+      // ssl: {
+      //   require: true,
+      //   rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+      // },
+    },
+    pool: { maxConnections: 5, maxIdleTime: 30 },
     language: "en",
   });
-
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log("connected to mysql");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
 
   db.userDetails = require("../models/userDetailsModel")(sequelize);
 
- 
   await sequelize.sync().catch((err) => {
     console.log(
       err,
       "#########################################################################################################################################################################################################################"
     );
   });
-
-  
 }

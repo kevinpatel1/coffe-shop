@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RegisterImage from "../../assets/images/register-image.jpg";
+import { useToasts } from "react-toast-notifications";
 import "./Register.css";
+import { registerUser } from "../../libs/api";
 function Register() {
+  const { addToast } = useToasts();
   const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "",
+    email: "",
     Password: "",
     firstName: "",
     lastName: "",
@@ -13,6 +16,28 @@ function Register() {
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const registerData = await registerUser(data);
+
+    if (registerData.status) {
+      navigate("/login");
+      addToast(
+        "Email id Send Successfully! You can Verify Your Account through Email.",
+        {
+          appearance: "success",
+          autoDismiss: true,
+        }
+      );
+    } else {
+      addToast(registerData.message, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
   };
 
   return (
@@ -28,6 +53,7 @@ function Register() {
             <input
               type="text"
               value={data.firstName}
+              name="firstName"
               onChange={handleChange}
               placeholder="Enter a First Name "
               id="email"
@@ -40,6 +66,7 @@ function Register() {
             <input
               type="text"
               value={data.lastName}
+              name="lastName"
               onChange={handleChange}
               placeholder="Enter a Last Name"
               id="lastName"
@@ -51,8 +78,9 @@ function Register() {
             </label>
             <input
               type="text"
-              value={data.username}
+              value={data.email}
               onChange={handleChange}
+              name="email"
               placeholder="email@website.com"
               id="email"
             />
@@ -64,6 +92,7 @@ function Register() {
             <input
               autocomplete="off"
               type="text"
+              name="Password"
               value={data.Password}
               onChange={handleChange}
               placeholder="Minimum 8 characters"
@@ -72,7 +101,7 @@ function Register() {
           </div>
 
           <button
-            onClick={() => navigate("/")}
+            onClick={(e) => handleSubmit(e)}
             class="rounded-button register-cta"
           >
             Sign up

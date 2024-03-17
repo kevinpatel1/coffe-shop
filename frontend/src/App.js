@@ -11,23 +11,34 @@ import ScrollToTop from "./Component/ScrollToTop";
 import Register from "./Pages/Register/Register";
 import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
+import { ToastProvider } from "react-toast-notifications";
+import { MyContextProvider } from "./hooks/MyContextProvider";
 
 function App() {
   return (
     <div>
       <ScrollToTop />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/menu/:categoryMenu" exact element={<Menu />} />
-          <Route path="/menu" exact element={<ProductView />} />
-          <Route path="/cart" exact element={<Cart />} />
-          <Route path="/contact" exact element={<Contact />} />
-          <Route path="/about" exact element={<About />} />
-        </Route>
-        <Route path="/login" exact element={<Login />} />
-        <Route path="/register" exact element={<Register />} />
-      </Routes>
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={5000}
+        // components={{ Toast: Snack }}
+        placement="bottom-center"
+      >
+        <MyContextProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" exact element={<Home />} />
+              <Route path="/menu/:categoryMenu" exact element={<Menu />} />
+              <Route path="/menu" exact element={<ProductView />} />
+              <Route path="/cart" exact element={<Cart />} />
+              <Route path="/contact" exact element={<Contact />} />
+              <Route path="/about" exact element={<About />} />
+            </Route>
+            <Route path="/login" exact element={<Login />} />
+            <Route path="/register" exact element={<Register />} />
+          </Routes>
+        </MyContextProvider>
+      </ToastProvider>
     </div>
   );
 }

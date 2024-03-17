@@ -1,27 +1,27 @@
 const nodemailer = require("nodemailer");
-const config = require("config");
-const secret = config.get("auth.mail");
-
 const transport = nodemailer.createTransport({
   service: "Gmail",
   secure: false,
   port: 25,
   auth: {
-    user: secret.email,
-    pass: secret.password,
+    user: "kevinwebmyne@gmail.com",
+    pass: "zzmgzpokkrnlnylz",
   },
 });
 
-const sendPassword = (email, password) => {
+const sendEmail = (email, subject, html) => {
   const mailSend = {
     to: email,
-    subject: "New Password",
-    html: "Your new password is" + "<b>" + "  " + password + "</b>",
+    subject: subject,
+    html: html,
   };
 
   const mail = transport.sendMail(mailSend, function (error) {
     if (error) {
-      console.log(error);
+      console.log(
+        "+=========================+++++++++++++++=================",
+        error
+      );
     } else {
       console.info("Email is  sent");
     }
@@ -29,4 +29,4 @@ const sendPassword = (email, password) => {
   return mail;
 };
 
-module.exports = { sendPassword };
+module.exports = { sendEmail };

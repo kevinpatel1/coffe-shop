@@ -24,12 +24,16 @@ function model(sequelize) {
       required: true,
     },
     role: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       required: true,
     },
-   
+
     email: {
       type: DataTypes.STRING,
+      required: true,
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
       required: true,
     },
     isDeleted: {

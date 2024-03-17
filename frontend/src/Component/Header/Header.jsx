@@ -1,18 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./Header.css";
 import Logo from "../../assets/images/landing-logo-img.jpeg";
 import { GrCart } from "react-icons/gr";
 import { useSelector } from "react-redux";
+import { MyContext } from "../../hooks/MyContextProvider";
 
 const Header = () => {
   let location = useLocation();
+  let navigate = useNavigate();
+  const { token, userDetails, updateToken, updateUserDetails } =
+    useContext(MyContext);
 
   const { Carts } = useSelector((state) => state._todoProduct);
 
   const [navbarToggler, setNavbarToggler] = React.useState(false);
   console.log(location?.pathname?.split("/")[2]);
+
+  const handleSignOut = () => {
+    updateToken("");
+    updateUserDetails("");
+    localStorage.clear();
+    navigate("/login");
+  };
+
   const hideHeaders = () => {
     if (location.pathname !== "/login") {
       return (
@@ -62,17 +74,6 @@ const Header = () => {
                     </Link>
                   </li>
                   <li class="nav-item">
-                    {/* <Link
-                      class={`nav-link ${
-                        location?.pathname === "/menu" ||
-                        location?.pathname === "/product"
-                          ? " active"
-                          : ""
-                      }`}
-                      to="/menu"
-                    >
-                      Menu
-                    </Link> */}
                     <div class="dropdown">
                       <p
                         class={`nav-link dropbtn ${
@@ -140,15 +141,68 @@ const Header = () => {
                 </ul>
               </div>
               <div className="d-flex ">
-                <Link className="custom-login" to={"/login"}>
-                  Login
-                </Link>
-                <div style={{ cursor: "pointer ", marginTop: 10 }}>
-                  <Link to={"/cart"}>
-                    <GrCart className="ml-3 pointer" />
-                    <div className="badge">{Carts?.length}</div>
+                {token && (
+                  <div style={{ cursor: "pointer ", marginTop: 10 }}>
+                    <Link to={"/cart"}>
+                      <GrCart className="ml-3 pointer" />
+                      <div className="badge">{Carts?.length}</div>
+                    </Link>
+                  </div>
+                )}
+                {token ? (
+                  <li class="nav-item">
+                    <div class="dropdown">
+                      <div
+                        style={{ cursor: "pointer" }}
+                        className=" mx-2 d-flex justify-content-center align-items-center"
+                      >
+                        <i className="fa fa-user" aria-hidden="true"></i>
+
+                        <p
+                          class={` px-2  mb-0 ${
+                            location?.pathname?.split("/")[1] === "/profile"
+                              ? "active"
+                              : ""
+                          }`}
+                        >
+                          {userDetails?.firstName + " " + userDetails?.lastName}
+                        </p>
+                      </div>
+                      <div class="dropdown-content">
+                        <Link
+                          className={`${
+                            location?.pathname?.split("/")[2] === "profile"
+                              ? "dropdown-active"
+                              : ""
+                          }`}
+                          to={"/profile"}
+                        >
+                          Profile{" "}
+                        </Link>
+                        <Link
+                          to={""}
+                          onClick={(e) => {
+                            handleSignOut();
+                          }}
+                        >
+                          Log Out
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                ) : (
+                  <Link className="custom-login" to={"/login"}>
+                    Login
                   </Link>
-                </div>
+                )}
+                {!token && (
+                  <div style={{ cursor: "pointer ", marginTop: 10 }}>
+                    <Link to={"/cart"}>
+                      <GrCart className="ml-3 pointer" />
+                      <div className="badge">{Carts?.length}</div>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </nav>
