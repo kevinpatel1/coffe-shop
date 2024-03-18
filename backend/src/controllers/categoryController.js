@@ -1,6 +1,7 @@
 const categoryService = require("../services/categoryService");
 
 const categoryAdd = (req, res) => {
+  console.log("req.body, req.user: ", req.body, req.user);
   categoryService
     .register(req.body, req.user)
     .then(() =>

@@ -9,7 +9,7 @@ async function register(data, user) {
       },
     })
   ) {
-    throw new Error("Product Item Category already exists");
+    throw new Error("Category already exists");
   }
   const newData = {
     categoryName: data.categoryName,
@@ -90,18 +90,18 @@ async function update(data, id, user) {
     where: { id: id },
   });
   if (checkCategory) {
-    if (checkCategory.name !== data.name) {
+    if (checkCategory.categoryName !== data.categoryName) {
       if (
         await db.category.findOne({
-          where: { name: data.name, isDeleted: false },
+          where: { categoryName: data.categoryName, isDeleted: false },
         })
       ) {
-        throw new Error("product Name already exists");
+        throw new Error("Category Name already exists");
       }
     }
 
     const newData = {
-      name: data.name,
+      categoryName: data.categoryName,
     };
 
     await db.category.update(newData, {

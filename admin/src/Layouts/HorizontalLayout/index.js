@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { Collapse } from "reactstrap";
-import { languageData } from "../../helpers/StaticLanguageData";
-
 // Import Data
 import navdata from "../VerticalLayouts/LayoutMenuData";
 //i18n
@@ -136,11 +134,11 @@ const HorizontalLayout = (props) => {
                 <li
                   className="nav-item"
                   onClick={() => {
-                    handleToggleMenu(item.labelEng);
+                    handleToggleMenu(item.label);
                   }}
                 >
                   <div
-                  style={{cursor: "pointer"}}
+                    style={{ cursor: "pointer" }}
                     // onClick={item.click}
                     className={`nav-link menu-link ${
                       location?.pathname === item?.link ||
@@ -154,20 +152,12 @@ const HorizontalLayout = (props) => {
                     data-bs-toggle="collapse"
                   >
                     <i className={item.icon}></i>{" "}
-                    <span data-key="t-apps">
-                      {props.t(
-                        language === "english"
-                          ? item.labelEng
-                          : language === "gujarati"
-                          ? item.labelGuj
-                          : ""
-                      )}
-                    </span>
+                    <span data-key="t-apps">{props.t(item.label)}</span>
                   </div>
                   <Collapse
                     className={`menu-dropdown ${
                       isTablet
-                        ? sidebarMenu.selectedMenu === item?.labelEng &&
+                        ? sidebarMenu.selectedMenu === item?.label &&
                           sidebarMenu.SubmenuOpen === true
                           ? "show-sub"
                           : "hideSubmenu"
@@ -192,13 +182,7 @@ const HorizontalLayout = (props) => {
                                       : ""
                                   }`}
                                 >
-                                  {props.t(
-                                    language === "english"
-                                      ? subItem.labelEng
-                                      : language === "gujarati"
-                                      ? subItem.labelGuj
-                                      : ""
-                                  )}
+                                  {props.t(subItem.label)}
                                 </Link>
                               </li>
                             ) : (
@@ -210,13 +194,7 @@ const HorizontalLayout = (props) => {
                                   data-bs-toggle="collapse"
                                 >
                                   {" "}
-                                  {props.t(
-                                    language === "english"
-                                      ? subItem.labelEng
-                                      : language === "gujarati"
-                                      ? subItem.labelGuj
-                                      : ""
-                                  )}
+                                  {props.t(subItem.label)}
                                 </Link>
                                 <Collapse
                                   className="menu-dropdown"
@@ -238,13 +216,7 @@ const HorizontalLayout = (props) => {
                                                   }
                                                   className="nav-link"
                                                 >
-                                                  {props.t(
-                                                    language === "english"
-                                                      ? subChildItem.labelEng
-                                                      : language === "gujarati"
-                                                      ? subChildItem.labelGuj
-                                                      : ""
-                                                  )}
+                                                  {props.t(subChildItem.label)}
                                                 </Link>
                                               </li>
                                             ) : (
@@ -256,13 +228,7 @@ const HorizontalLayout = (props) => {
                                                   data-bs-toggle="collapse"
                                                 >
                                                   {" "}
-                                                  {props.t(
-                                                    language === "english"
-                                                      ? subChildItem.labelEng
-                                                      : language === "gujarati"
-                                                      ? subChildItem.labelGuj
-                                                      : ""
-                                                  )}
+                                                  {props.t(subChildItem.label)}
                                                 </Link>
                                                 <Collapse
                                                   className="menu-dropdown"
@@ -295,13 +261,7 @@ const HorizontalLayout = (props) => {
                                                               className="nav-link"
                                                             >
                                                               {props.t(
-                                                                language ===
-                                                                  "english"
-                                                                  ? subSubChildItem.labelEng
-                                                                  : language ===
-                                                                    "gujarati"
-                                                                  ? subSubChildItem.labelGuj
-                                                                  : ""
+                                                                subSubChildItem.label
                                                               )}
                                                             </Link>
                                                           </li>
@@ -329,52 +289,36 @@ const HorizontalLayout = (props) => {
                     className={`nav-link menu-link ${
                       location?.pathname === item?.link ||
                       (location?.pathname === "/addproposal" &&
-                        item?.labelEng === "Proposal") ||
+                        item?.label === "Proposal") ||
                       (location?.pathname === "/editproposal" &&
-                        item?.labelEng === "Proposal") ||
+                        item?.label === "Proposal") ||
                       (location?.pathname === "/addscript" &&
-                        item?.labelEng === "Script") ||
+                        item?.label === "Script") ||
                       (location?.pathname === "/viewscript" &&
-                        item?.labelEng === "Script") ||
+                        item?.label === "Script") ||
                       (location?.pathname === "/editscript" &&
-                        item?.labelEng === "Script") ||
+                        item?.label === "Script") ||
                       (location?.pathname === "/addagenda" &&
-                        item?.labelEng === "Agenda ") ||
+                        item?.label === "Agenda ") ||
                       (location?.pathname === "/editagenda" &&
-                        item?.labelEng === "Agenda ") ||
+                        item?.label === "Agenda ") ||
                       (location?.pathname === "/addmember" &&
-                        item?.labelEng === "Member") ||
+                        item?.label === "Member") ||
                       (location?.pathname === "/editmember" &&
-                        item?.labelEng === "Member")
+                        item?.label === "Member")
                         ? "active"
                         : ""
                     }`}
                     to={item.link ? item.link : "/#"}
                   >
                     <i className={item.icon}></i>{" "}
-                    <span>
-                      {props.t(
-                        language === "english"
-                          ? item.labelEng
-                          : language === "gujarati"
-                          ? item.labelGuj
-                          : ""
-                      )}
-                    </span>
+                    <span>{props.t(item.label)}</span>
                   </Link>
                 </li>
               )
             ) : (
               <li className="menu-title">
-                <span data-key="t-menu">
-                  {props.t(
-                    language === "english"
-                      ? item.labelEng
-                      : language === "gujarati"
-                      ? item.labelGuj
-                      : ""
-                  )}
-                </span>
+                <span data-key="t-menu">{props.t(item.label)}</span>
               </li>
             )}
           </React.Fragment>

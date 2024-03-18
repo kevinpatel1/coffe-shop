@@ -23,7 +23,9 @@ import BgImage from "../../assets/images/bg-image2.jpg";
 import Logo from "../../assets/images/landing-logo-img.jpeg";
 
 const Login = () => {
-  const { updateRole, updatePermissions } = useContext(MyContext);
+  const { updateRole, updateToken, token, updateUserDetails } =
+    useContext(MyContext);
+  console.log("token: ", token);
   const [loading, setloading] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +57,7 @@ const Login = () => {
 
     if (!error) {
       let formData = {
-        userName: userName,
+        username: userName,
         password: password,
       };
 
@@ -68,7 +70,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       };
-      fetch(`${process.env.REACT_APP_API_URL}login`, requestOptions)
+      fetch(`${process.env.REACT_APP_API_URL}admin/login`, requestOptions)
         .then((response) => response.json())
         .then(async (data) => {
           if (data && data.err_msg === "Invalid Token") {
@@ -81,23 +83,18 @@ const Login = () => {
           }
 
           if (data.status) {
-            localStorage.setItem("token", data?.data?.token);
-            localStorage.setItem("role", data?.data?.userDetail?.roleId);
-
-            updateRole(data?.data?.userDetail?.roleId);
-
-            localStorage.setItem(
-              "permissions",
-              JSON.stringify(data?.data?.permissions)
-            );
-
+            localStorage.setItem("role", data?.data?.userDetails?.role);
             localStorage.setItem(
               "authUser",
-              JSON.stringify(data?.data?.userDetail)
+              JSON.stringify(data?.data?.userDetails)
             );
+            localStorage.setItem("token", data?.data?.token);
+
+            updateRole(data?.data?.userDetails?.role);
+            updateToken(data?.data?.token);
+            updateUserDetails(JSON.stringify(data?.data?.userDetails));
 
             setTimeout(() => {
-              updatePermissions();
               history.push("/dashboard");
             }, 1000);
           } else {

@@ -11,18 +11,14 @@ import avatar1 from "../../assets/images/Asset.png";
 import { MyContext } from "../Hooks/MyContextProvider";
 
 const ProfileDropdown = () => {
-  const { language } = useContext(MyContext);
   //Dropdown Toggle
   const [isProfileDropdown, setIsProfileDropdown] = useState(false);
   const toggleProfileDropdown = () => {
     setIsProfileDropdown(!isProfileDropdown);
   };
-  let Instructor;
 
-  let data = localStorage.getItem("authUser");
-  if (data) {
-    Instructor = JSON.parse(data);
-  }
+  const { userDetails } = useContext(MyContext);
+
   return (
     <React.Fragment>
       <Dropdown
@@ -35,8 +31,8 @@ const ProfileDropdown = () => {
             <img
               className="rounded-circle header-profile-user"
               src={
-                Instructor?.profilePhoto
-                  ? `${Instructor?.profilePhoto}`
+                userDetails?.profilePhoto
+                  ? `${userDetails?.profilePhoto}`
                   : avatar1
               }
               alt="Header Avatar"
@@ -44,28 +40,24 @@ const ProfileDropdown = () => {
             {/* <AccountCircleIcon className="account_circleicon" /> */}
             <span className="text-start mx-2">
               <span className="d-none d-xl-inline-block fw-medium user-name-text">
-                {language === "english"
-                  ? Instructor?.nameEng
-                  : Instructor?.nameGuj}
+                {userDetails?.firstName}
               </span>
               <span
                 className="d-none d-xl-block fs-13 text-muted user-name-sub-text"
                 style={{ textTransform: "capitalize" }}
               >
-                {language === "english"
-                  ? Instructor?.role?.roleNameEng
-                  : Instructor?.role?.roleNameGuj}
+                {userDetails?.role}
               </span>
             </span>
           </span>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <h6 className="dropdown-header">Welcome {Instructor?.clientName}!</h6>
+          <h6 className="dropdown-header">Welcome {userDetails?.firstName}!</h6>
           <div className="dropdown-divider"></div>
-          <DropdownItem href="/profile">
+          {/* <DropdownItem href="/profile">
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
             <span className="align-middle">Profile</span>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem href="/logout">
             <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle" data-key="t-logout">

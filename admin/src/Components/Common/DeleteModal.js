@@ -1,12 +1,8 @@
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { Modal, ModalBody } from "reactstrap";
-import { languageData } from "../../helpers/StaticLanguageData";
-import { MyContext } from "../Hooks/MyContextProvider";
 
 const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
-  const { language } = useContext(MyContext);
-
   return (
     <Modal isOpen={show} toggle={onCloseClick} centered={true}>
       <ModalBody className="py-3 px-5">
@@ -18,9 +14,9 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
             style={{ width: "100px", height: "100px" }}
           ></lord-icon>
           <div className="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-            <h4>{languageData[language].common?.areYouSure}</h4>
+            <h4>Are you sure ?</h4>
             <p className="text-muted mx-4 mb-0">
-              {languageData[language].common?.deleteMsg}
+              You want to remove this record ?
             </p>
           </div>
         </div>
@@ -31,7 +27,7 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
             data-bs-dismiss="modal"
             onClick={onCloseClick}
           >
-            {languageData[language].common?.close}
+            Close
           </button>
           <button
             type="button"
@@ -39,7 +35,7 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }) => {
             id="delete-record"
             onClick={onDeleteClick}
           >
-            {languageData[language].common?.deleteIt}
+            Yes, Delete It!
           </button>
         </div>
       </ModalBody>
