@@ -1,7 +1,7 @@
 const db = require("../db/sequelizeClient");
 const { Op } = require("sequelize");
 
-async function register(data, files, user) {
+async function register(data, file, user) {
   if (
     await db.product.findOne({
       where: {
@@ -21,15 +21,8 @@ async function register(data, files, user) {
     isDeleted: false,
   };
 
-  if (files?.length > 0) {
-    let arr = [];
-    for (let index = 0; index < files.length; index++) {
-      const element = files[index];
-
-      arr.push(element.filename);
-    }
-
-    newData.images = JSON.stringify(arr);
+  if (file) {
+    newData.images = file.filename;
   }
 
   let addData = await db.product.create(newData);
@@ -55,6 +48,12 @@ async function list(user, size, page) {
   const sqlQuery = {
     where: { isDeleted: false },
     order: [["updatedAt", "DESC"]],
+    include: [
+      {
+        model: db.category,
+        as: "category",
+      },
+    ],
   };
 
   if (limit) {
@@ -62,14 +61,14 @@ async function list(user, size, page) {
     sqlQuery.offset = offset;
   }
 
-  const list = db.product.findAndCountAll(sqlQuery);
+  const list = await db.product.findAndCountAll(sqlQuery);
 
   if (list) {
     let finalResponse = {
       rows: [],
       count: list.count,
     };
-    for (let index = 0; index < list?.rows.length; index++) {
+    for (let index = 0; index < list?.rows?.length; index++) {
       const element = list?.rows[index];
 
       let obj = {
@@ -77,11 +76,13 @@ async function list(user, size, page) {
         productName: element.productName,
         productDescription: element.productDescription,
         price: element.price,
+        category: element.category,
+        images: element.images,
         reviews: element.reviews,
         isDeleted: element.isDeleted,
       };
 
-      const stockDetails = db.stock.findOne({
+      const stockDetails = await db.stock.findOne({
         where: { productId: element.id, isDeleted: false },
         order: [["updatedAt", "DESC"]],
       });
@@ -95,7 +96,7 @@ async function list(user, size, page) {
   }
 }
 
-async function update(data, id, files, user) {
+async function update(data, id, file, user) {
   let checkProduct = await db.product.findOne({
     where: { id: id },
   });
@@ -119,15 +120,8 @@ async function update(data, id, files, user) {
       isDeleted: false,
     };
 
-    if (files?.length > 0) {
-      let arr = [];
-      for (let index = 0; index < files.length; index++) {
-        const element = files[index];
-
-        arr.push(element.filename);
-      }
-
-      newData.images = JSON.stringify(arr);
+    if (file) {
+      newData.images = file.filename;
     }
 
     await db.product.update(newData, {
@@ -155,6 +149,7 @@ async function soft_delete(id, user) {
 }
 
 async function listByCategoryId(categoryId, user, size, page) {
+  console.log("categoryId: ", categoryId);
   let limit = parseInt(size);
   let offset = parseInt(page);
   const sqlQuery = {
@@ -167,14 +162,14 @@ async function listByCategoryId(categoryId, user, size, page) {
     sqlQuery.offset = offset;
   }
 
-  const list = db.product.findAndCountAll(sqlQuery);
+  const list = await db.product.findAndCountAll(sqlQuery);
 
   if (list) {
     let finalResponse = {
       rows: [],
       count: list.count,
     };
-    for (let index = 0; index < list?.rows.length; index++) {
+    for (let index = 0; index < list?.rows?.length; index++) {
       const element = list?.rows[index];
 
       let obj = {
@@ -186,7 +181,7 @@ async function listByCategoryId(categoryId, user, size, page) {
         isDeleted: element.isDeleted,
       };
 
-      const stockDetails = db.stock.findOne({
+      const stockDetails = await db.stock.findOne({
         where: { productId: element.id, isDeleted: false },
         order: [["updatedAt", "DESC"]],
       });

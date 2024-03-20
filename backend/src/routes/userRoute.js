@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const employeeController = require("../controllers/userController");
+const userController = require("../controllers/userController");
+const { verifyToken } = require("../utils/auth");
 const upload = require("../utils/upload");
 
-router.post("/registerUser", employeeController.userRegister);
+router.post("/registerUser", userController.userRegister);
+router.get("/list", verifyToken, userController.userGetAll);
 
 module.exports = router;

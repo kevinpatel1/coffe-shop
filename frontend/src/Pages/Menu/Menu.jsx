@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 const Menu = () => {
   const params = useParams();
+  console.log("productsData: ", productsData);
 
   const [products, setProducts] = useState(productsData);
   const [search, setSearch] = useState();

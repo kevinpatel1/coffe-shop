@@ -22,3 +22,24 @@ export async function loginUser(credentials) {
   const _data = await data.json();
   return _data;
 }
+
+export async function allProductApi() {
+  const data = await fetch(`${baseURL}/product/list`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const _data = await data.json();
+  return _data;
+}
+export async function allCategoryApi() {
+  const data = await fetch(`${baseURL}/category/list`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const _data = await data.json();
+  return _data;
+}

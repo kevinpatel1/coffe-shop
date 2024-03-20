@@ -63,7 +63,35 @@ async function verifyRegisterLink(data) {
   // }
 }
 
+async function list(user, size, page) {
+  let limit = parseInt(size);
+  let offset = parseInt(page);
+  const sqlQuery = {
+    where: { isDeleted: false },
+    order: [["updatedAt", "DESC"]],
+  };
+
+  if (limit) {
+    sqlQuery.limit = limit;
+    sqlQuery.offset = offset;
+  }
+
+  const list = await db.userDetails.findAndCountAll(sqlQuery);
+
+  if (list) {
+    let filtered = list?.rows?.filter(
+      (er) => er?.userName !== "admin@gmail.com"
+    );
+
+    return {
+      count: list.count - 1,
+      rows: filtered,
+    };
+  }
+}
+
 module.exports = {
   register,
   verifyRegisterLink,
+  list,
 };

@@ -173,11 +173,14 @@ body {
 }
 
 .ant-pagination-item-link {
+  padding: 0.2rem 0.4rem;
   background-color: #342412 !important;
   color: white !important;
   border-radius: 8px !important;
 }
-
+.anticon {
+  vertical-align: 0rem;
+}
 .ant-pagination-item {
   border-radius: 8px !important;
 }
@@ -186,6 +189,13 @@ body {
 }
 .ant-pagination-item:active {
   border-color: #e2592f !important;
+}
+
+.ant-pagination-item {
+  cursor: pointer;
+  padding: 0.2rem 0.7rem;
+  background-color: white;
+  border: 1px solid black;
 }
 
 /* @media screen and (max-width: 1440px) {
@@ -788,4 +798,17 @@ td,
   *:hover > .resizer {
     opacity: 1;
   }
+}
+.ant-pagination {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  display: flex;
+  gap: 14px;
 }

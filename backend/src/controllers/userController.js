@@ -91,6 +91,7 @@ const adminUserLogin = async (req, res) => {
   let checkuser = await db.userDetails.findOne({
     where: { email: username, role: "admin", isDeleted: false },
   });
+  console.log("checkuser: ", checkuser);
   if (checkuser) {
     if (checkuser.isActive) {
       let loginDetail = {};
@@ -134,9 +135,26 @@ const adminUserLogin = async (req, res) => {
   }
 };
 
+const userGetAll = (req, res) => {
+  userService
+    .list(req.user, req.query.size, req.query.page)
+    .then((user) => {
+      res.status(200).send({
+        status: 200,
+        data: user,
+      });
+    })
+    .catch((err) => {
+      res.status(400).send({
+        err_msg: err.message,
+      });
+    });
+};
+
 module.exports = {
   userRegister,
   verifyRegisterLink,
   userLogin,
   adminUserLogin,
+  userGetAll,
 };

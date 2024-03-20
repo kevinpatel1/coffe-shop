@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./Header.css";
@@ -6,16 +6,23 @@ import Logo from "../../assets/images/landing-logo-img.jpeg";
 import { GrCart } from "react-icons/gr";
 import { useSelector } from "react-redux";
 import { MyContext } from "../../hooks/MyContextProvider";
+import { allCategoryApi } from "../../libs/api";
+import { useToasts } from "react-toast-notifications";
+import { useEffect } from "react";
 
 const Header = () => {
   let location = useLocation();
   let navigate = useNavigate();
   const { token, userDetails, updateToken, updateUserDetails } =
     useContext(MyContext);
+  const { addToast } = useToasts();
 
   const { Carts } = useSelector((state) => state._todoProduct);
 
   const [navbarToggler, setNavbarToggler] = React.useState(false);
+  const [categoryList, setCategoryList] = React.useState([]);
+  const [loading, setloading] = React.useState(true);
+  console.log("categoryList: ", categoryList);
   console.log(location?.pathname?.split("/")[2]);
 
   const handleSignOut = () => {
@@ -24,6 +31,32 @@ const Header = () => {
     localStorage.clear();
     navigate("/login");
   };
+
+  const callAPI = useCallback(async () => {
+    try {
+      const apiCall = await allCategoryApi();
+      console.log("apiCall: ", apiCall);
+      if (apiCall.status === 200) {
+        setCategoryList(apiCall?.data?.rows);
+        setloading(false);
+      } else {
+        addToast(apiCall.err_msg, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  }, [addToast]);
+
+  useEffect(() => {
+    callAPI();
+  }, [callAPI]);
 
   const hideHeaders = () => {
     if (location.pathname !== "/login") {
@@ -85,36 +118,21 @@ const Header = () => {
                         Shop
                       </p>
                       <div class="dropdown-content">
-                        <Link
-                          className={`${
-                            location?.pathname?.split("/")[2] === "coffee"
-                              ? "dropdown-active"
-                              : ""
-                          }`}
-                          to={"/menu/coffee"}
-                        >
-                          Coffee{" "}
-                        </Link>
-                        <Link
-                          className={`${
-                            location?.pathname?.split("/")[2] === "coffeeBeans"
-                              ? "dropdown-active"
-                              : ""
-                          }`}
-                          to={"/menu/coffeeBeans"}
-                        >
-                          Coffee Beans
-                        </Link>
-                        <Link
-                          className={`${
-                            location?.pathname?.split("/")[2] === "coffeeGear"
-                              ? "dropdown-active"
-                              : ""
-                          }`}
-                          to={"/menu/coffeeGear"}
-                        >
-                          Coffee Gear
-                        </Link>
+                        {categoryList?.map((item, index) => {
+                          return (
+                            <Link
+                              key={index}
+                              className={`${
+                                location?.pathname?.split("/")[2] === item?.id
+                                  ? "dropdown-active"
+                                  : ""
+                              }`}
+                              to={`/menu/${item?.id}`}
+                            >
+                              {item?.categoryName}{" "}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </li>

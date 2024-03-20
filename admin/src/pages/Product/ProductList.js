@@ -14,8 +14,8 @@ import { css } from "@emotion/react";
 import { toast } from "react-toastify";
 import DeleteModal from "../../Components/Common/DeleteModal";
 import { MetaTags } from "react-meta-tags";
-import AddCategory from "./AddCategory";
-import EditCategory from "./EditCategory";
+import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
 import EditIcon from "../../assets/icon/Edit.svg";
 import DeleteIcon from "../../assets/icon/Delete.svg";
 import { Tooltip } from "@material-ui/core";
@@ -26,16 +26,16 @@ const override = css`
   height: 100%;
 `;
 
-const CategoryList = () => {
+const ProductList = () => {
   const history = useHistory();
 
-  const [categoryDetails, setCategoryDetails] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
   const [loading, setloading] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   let color = "#e9511d";
-  const [addCategoryModal, setAddCategoryModal] = useState(false);
-  const [editCategoryModal, setEditCategoryModal] = useState(false);
-  const [singleCategoryDetails, setSingleCategoryDetails] = useState(false);
+  const [addProductModal, setAddProductModal] = useState(false);
+  const [editProductModal, setEditProductModal] = useState(false);
+  const [singleProductDetails, setSingleProductDetails] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [limit, setLimit] = useState(10); // default slimit
   const [offset, setOffset] = useState(0); // default offset
@@ -46,7 +46,7 @@ const CategoryList = () => {
 
   let initialState = {};
 
-  const getCategoryListApi = useCallback(
+  const getProductListApi = useCallback(
     (limit, offset, query) => {
       const token = localStorage.getItem("token");
 
@@ -58,7 +58,7 @@ const CategoryList = () => {
         },
       };
       fetch(
-        `${process.env.REACT_APP_API_URL}category/list?size=${limit}&page=${offset}`,
+        `${process.env.REACT_APP_API_URL}product/list?size=${limit}&page=${offset}`,
         requestOptions
       )
         .then((response) => response.json())
@@ -71,7 +71,7 @@ const CategoryList = () => {
             // });
           }
           if (data.status) {
-            setCategoryDetails(data?.data?.rows);
+            setProductDetails(data?.data?.rows);
             setTotalCount(data?.data?.count);
             setloading(false);
           } else {
@@ -93,19 +93,34 @@ const CategoryList = () => {
   );
 
   useEffect(() => {
-    getCategoryListApi(limit, offset, query);
+    getProductListApi(limit, offset, query);
     // eslint-disable-next-line
-  }, [getCategoryListApi]);
+  }, [getProductListApi]);
 
-  const toggleCategory = useCallback(() => {
-    setAddCategoryModal(!addCategoryModal);
-  }, [addCategoryModal]);
+  const toggleProduct = useCallback(() => {
+    setAddProductModal(!addProductModal);
+  }, [addProductModal]);
 
-  const categoryColumn = useMemo(
+  const productColumn = useMemo(
     () => [
       {
-        Header: "Category Name",
-        accessor: "categoryName",
+        Header: "Product Name",
+        accessor: "productName",
+        filterable: false,
+      },
+      {
+        Header: "Product Category",
+        accessor: "category.categoryName",
+        filterable: false,
+      },
+      {
+        Header: "Product Price",
+        accessor: "price",
+        filterable: false,
+      },
+      {
+        Header: "Product Stock",
+        accessor: "stock",
         filterable: false,
       },
 
@@ -127,8 +142,8 @@ const CategoryList = () => {
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      setEditCategoryModal(true);
-                      setSingleCategoryDetails(cellProps?.row?.original);
+                      setEditProductModal(true);
+                      setSingleProductDetails(cellProps?.row?.original);
                     }}
                     src={EditIcon}
                     height={23}
@@ -171,7 +186,7 @@ const CategoryList = () => {
       },
     };
     fetch(
-      `${process.env.REACT_APP_API_URL}category/deleteCategory/${selectedId}`,
+      `${process.env.REACT_APP_API_URL}product/deleteProduct/${selectedId}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -184,7 +199,7 @@ const CategoryList = () => {
         if (data.status) {
           setDeleteModal(false);
           toast.success("Record Deleted Successfully.");
-          getCategoryListApi(limit, offset, query);
+          getProductListApi(limit, offset, query);
         } else {
           setDeleteModal(false);
           toast.error(data?.message);
@@ -209,25 +224,25 @@ const CategoryList = () => {
   return (
     <>
       <MetaTags>
-        <title>Coffee Gable | Category</title>
+        <title>Coffee Gable | Product</title>
       </MetaTags>
-      <BreadCrumb title={"Category List"} pageTitle={"Product Management"} />
+      <BreadCrumb title={"Product List"} pageTitle={"Product Management"} />
       <Row className="file-manager-content-fix">
         <Col lg={12}>
           <Card className="file-manager-content w-100 p-3 pt-0">
             <CardHeader className="card-header  border-0">
               <div className="d-flex align-items-center">
                 <div className="flex-grow-1">
-                  <h5 className="card-title mb-0 fs-15 ">Category List </h5>
+                  <h5 className="card-title mb-0 fs-15 ">Product List </h5>
                 </div>
 
                 <div className="flex-shrink-0">
-                  <Tooltip title={"Add Category"} placement="left" arrow>
+                  <Tooltip title={"Add Product"} placement="left" arrow>
                     <button
                       type="button"
                       className="btn btn-success add-btn"
                       id="create-btn"
-                      onClick={toggleCategory}
+                      onClick={toggleProduct}
                     >
                       <i className="ri-add-line align-bottom me-1"></i> Add{" "}
                     </button>
@@ -237,16 +252,16 @@ const CategoryList = () => {
             </CardHeader>
 
             <div className="mt-5 ">
-              {categoryDetails && categoryDetails?.length > 0 ? (
+              {productDetails && productDetails?.length > 0 ? (
                 <>
                   <TableContainer
-                    columns={categoryColumn}
-                    data={categoryDetails}
+                    columns={productColumn}
+                    data={productDetails}
                     isGlobalFilter={false}
                     isAddUserList={false}
                     customPageSize={10}
-                    apiCallFunction={getCategoryListApi}
-                    rowDetails={categoryDetails}
+                    apiCallFunction={getProductListApi}
+                    rowDetails={productDetails}
                     query={query}
                     totalCount={totalCount}
                     limit={limit}
@@ -267,31 +282,31 @@ const CategoryList = () => {
         </Col>
       </Row>
 
-      {addCategoryModal && (
-        <AddCategory
-          addCategoryModal={addCategoryModal}
-          onCloseModal={() => setAddCategoryModal(false)}
+      {addProductModal && (
+        <AddProduct
+          addProductModal={addProductModal}
+          onCloseModal={() => setAddProductModal(false)}
           onModalSubmitBtnClk={() => {
             setloading(true);
-            getCategoryListApi(limit, offset);
-            setAddCategoryModal(false);
+            getProductListApi(limit, offset);
+            setAddProductModal(false);
           }}
         />
       )}
-      {editCategoryModal && (
-        <EditCategory
-          editCategoryModal={editCategoryModal}
+      {editProductModal && (
+        <EditProduct
+          editProductModal={editProductModal}
           onCloseModal={() => {
-            setEditCategoryModal(false);
-            setSingleCategoryDetails({});
+            setEditProductModal(false);
+            setSingleProductDetails({});
           }}
           onModalSubmitBtnClk={() => {
             setloading(true);
-            getCategoryListApi(limit, offset);
-            setEditCategoryModal(false);
-            setSingleCategoryDetails({});
+            getProductListApi(limit, offset);
+            setEditProductModal(false);
+            setSingleProductDetails({});
           }}
-          row={singleCategoryDetails}
+          row={singleProductDetails}
         />
       )}
 
@@ -305,4 +320,4 @@ const CategoryList = () => {
     </>
   );
 };
-export default CategoryList;
+export default ProductList;

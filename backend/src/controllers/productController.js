@@ -2,7 +2,7 @@ const productService = require("../services/productService");
 
 const productAdd = (req, res) => {
   productService
-    .register(req.body, req.user)
+    .register(req.body, req.file, req.user)
     .then(() =>
       res.status(200).send({
         status: 200,
@@ -55,7 +55,7 @@ const productGetAllByCategoryId = (req, res) => {
 const productUpdate = (req, res) => {
   const id = req.params.id;
   productService
-    .update(req.body, id, req.user)
+    .update(req.body, id, req.file, req.user)
     .then((product) => {
       res.status(200).send({
         status: 200,
