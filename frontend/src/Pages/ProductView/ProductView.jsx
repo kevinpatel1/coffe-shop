@@ -70,7 +70,7 @@ const ProductView = () => {
   return (
     <div>
       <div className="back-btn">
-        <button onClick={() => navigate("/menu/coffee")}>
+        <button onClick={() => navigate("/menu/1")}>
           <svg
             height="16"
             width="16"
@@ -89,9 +89,9 @@ const ProductView = () => {
             <img
               className="CarouselImage img-fluid"
               key={products?.images?.length}
-              src={products?.images}
-              height={400}
-              width={560}
+              src={`http://localhost:3006/uploads/${products.images}`}
+              height={300}
+              width={460}
               alt={"Slide"}
             />
           )}
@@ -99,7 +99,7 @@ const ProductView = () => {
 
         <div>
           <div className="detailsBlock-1">
-            <h2>{products?.name}</h2>
+            <h2>{products?.productName}</h2>
             <p>Product # {products?.id}</p>
           </div>
           <div className="detailsBlock-2">
@@ -118,7 +118,7 @@ const ProductView = () => {
                 <button onClick={increaseQuantity}>+</button>
               </div>{" "}
               <button
-                disabled={products?.Stock < 1 ? true : false}
+                disabled={products?.stock < 1 ? true : false}
                 onClick={addToCartHandler}
               >
                 Add to Cart
@@ -129,16 +129,16 @@ const ProductView = () => {
               Status:
               <b
                 className={`${
-                  products?.Stock < 1 ? "redColor" : "greenColor"
+                  products?.stock < 1 ? "redColor" : "greenColor"
                 } ml-2`}
               >
-                {products?.Stock < 1 ? "OutOfStock" : "InStock"}
+                {products?.stock < 1 ? "OutOfStock" : "InStock"}
               </b>
             </p>
           </div>
 
           <div className="detailsBlock-4">
-            Description : <p className="mt-2">{products?.description}</p>
+            Description : <p className="mt-2">{products?.productDescription}</p>
           </div>
 
           <button onClick={submitReviewToggle} className="submitReview">

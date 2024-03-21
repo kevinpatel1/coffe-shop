@@ -13,6 +13,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { Carts } = useSelector((state) => state._todoProduct);
+  console.log("Carts: ", Carts);
 
   const subtotal = useCallback(() => {
     let total = Carts.reduce(
@@ -78,7 +79,10 @@ const Cart = () => {
                     <div key={items?.id} class="row border-top border-bottom">
                       <div class="row main align-items-center">
                         <div class="col-2">
-                          <img class="img-fluid" src={items?.image} />
+                          <img
+                            class="img-fluid"
+                            src={`http://localhost:3006/uploads/${items.image}`}
+                          />
                         </div>
                         <div class="col">
                           <div class="row text-muted">Coffee</div>

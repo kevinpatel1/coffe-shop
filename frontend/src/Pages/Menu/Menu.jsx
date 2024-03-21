@@ -4,50 +4,79 @@ import ProductCard from "./ProductCard/ProductCard";
 import { useCallback, useEffect, useState } from "react";
 import { productsData } from "../../Helper/_helper";
 import { useParams } from "react-router-dom";
+import { allProductByCategoryIdApi } from "../../libs/api";
+import { useToasts } from "react-toast-notifications";
 
 const Menu = () => {
   const params = useParams();
-  console.log("productsData: ", productsData);
+  const { addToast } = useToasts();
 
-  const [products, setProducts] = useState(productsData);
+  const [products, setProducts] = useState();
+  console.log("products: ", products);
   const [search, setSearch] = useState();
-  const [filterState, setFilterState] = useState(params?.categoryMenu);
+  const [loading, setLoading] = useState(true);
   const [filterProductData, setFilterProductData] = useState([]);
+  console.log("filterProductData: ", filterProductData);
 
-  const handleSearch = useCallback(
-    (e) => {
-      e.preventDefault();
-      setSearch(e.target.value);
-      if (e.target.value) {
-        const filteredRows = [];
-        console.log(filterProductData);
-        (filterProductData || []).forEach((et) => {
-          if (
-            (et.name || "")
-              .toLowerCase()
-              .includes((e.target.value || "").toLowerCase())
-          ) {
-            filteredRows.push({ ...et });
-          }
-        });
-        setFilterProductData(filteredRows);
+  const handleSearch = useCallback((e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    if (e.target.value) {
+      const filteredRows = [];
+      console.log(filterProductData);
+      (filterProductData || []).forEach((et) => {
+        console.log("et: ", et);
+        if (
+          (et.productName || "")
+            .toLowerCase()
+            .includes((e.target.value || "").toLowerCase())
+        ) {
+          filteredRows.push({ ...et });
+        }
+      });
+      setFilterProductData(filteredRows);
+    } else {
+      setFilterProductData(products);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   if (products || filterState) {
+  //     let filteredData = products?.filter((er) => er?.category === filterState);
+  //     setFilterProductData(filteredData);
+  //     setSearch("");
+  //   }
+  // }, [products, filterState]);
+
+  const callAPI = useCallback(async () => {
+    try {
+      const apiCall = await allProductByCategoryIdApi(params?.categoryMenu);
+      console.log("apiCall: ", apiCall);
+      if (apiCall.status === 200) {
+        setFilterProductData(apiCall?.data?.rows);
+        setProducts(apiCall?.data?.rows);
+        setSearch("");
+        setLoading(false);
       } else {
-        let filteredData = products?.filter(
-          (er) => er?.category === filterState
-        );
-        setFilterProductData(filteredData);
+        setLoading(false);
+        addToast(apiCall.err_msg, {
+          appearance: "error",
+          autoDismiss: true,
+        });
       }
-    },
-    [filterProductData]
-  );
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  }, [addToast]);
 
   useEffect(() => {
-    if (products || filterState) {
-      let filteredData = products?.filter((er) => er?.category === filterState);
-      setFilterProductData(filteredData);
-      setSearch("");
-    }
-  }, [products, filterState]);
+    callAPI();
+  }, [callAPI]);
 
   return (
     <div>
@@ -81,118 +110,6 @@ const Menu = () => {
           </div>
         </div>
       </div>
-
-      {/* <div class="container">
-        <div class="row justify-content-center align-items-center">
-          <div
-            class={`col custom-menu-col ${
-              filterState === "coffee" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("coffee");
-              }}
-            >
-              Coffee
-            </button>
-          </div>
-          <div
-            class={`col custom-menu-col ${
-              filterState === "coffeeBeans" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("coffeeBeans");
-              }}
-            >
-              Coffee Beans
-            </button>
-          </div>
-          <div
-            class={`col custom-menu-col ${
-              filterState === "coffeeGear" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("coffeeGear");
-              }}
-            >
-              Coffee Gear
-            </button>
-          </div>
-
-          <div
-            class={`col custom-menu-col ${
-              filterState === "coffeeFilters" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("coffeeFilters");
-              }}
-            >
-              Coffee Filters
-            </button>
-          </div>
-        </div>
-        <div class="row justify-content-center align-items-center">
-          <div
-            class={`col custom-menu-col ${
-              filterState === "brewingAccessories" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("brewingAccessories");
-              }}
-            >
-              Brewing Accessories
-            </button>
-          </div>
-          <div
-            class={`col custom-menu-col ${
-              filterState === "mugs" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("mugs");
-              }}
-            >
-              Mugs
-            </button>
-          </div>
-          <div
-            class={`col custom-menu-col ${
-              filterState === "gifting" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("gifting");
-              }}
-            >
-              Gifting
-            </button>
-          </div>
-          <div
-            class={`col custom-menu-col ${
-              filterState === "baristaToolKits" ? "activeState" : ""
-            }`}
-          >
-            <button
-              onClick={() => {
-                setFilterState("baristaToolKits");
-              }}
-            >
-              Barista Tool Kits
-            </button>
-          </div>
-        </div>
-      </div> */}
 
       <div>
         <div className="container" id="container">

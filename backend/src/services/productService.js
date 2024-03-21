@@ -177,6 +177,7 @@ async function listByCategoryId(categoryId, user, size, page) {
         productName: element.productName,
         productDescription: element.productDescription,
         price: element.price,
+        images: element.images,
         reviews: element.reviews,
         isDeleted: element.isDeleted,
       };
