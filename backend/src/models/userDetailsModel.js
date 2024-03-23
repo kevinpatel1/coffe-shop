@@ -32,6 +32,26 @@ function model(sequelize) {
       type: DataTypes.STRING,
       required: true,
     },
+    phoneNo: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    address: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    city: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    state: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    postalCode: {
+      type: DataTypes.STRING,
+      required: true,
+    },
     isActive: {
       type: DataTypes.BOOLEAN,
       required: true,

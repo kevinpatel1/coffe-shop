@@ -36,12 +36,47 @@ export async function allProductByCategoryIdApi(categoryId) {
   const _data = await data.json();
   return _data;
 }
+export async function allProductApi() {
+  const data = await fetch(`${baseURL}/product/list`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const _data = await data.json();
+  return _data;
+}
 export async function allCategoryApi() {
   const data = await fetch(`${baseURL}/category/list`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
+  });
+  const _data = await data.json();
+  return _data;
+}
+
+export async function paymentOrderApi(payloadData, token) {
+  const data = await fetch(`${baseURL}/payment/paymentOrder`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+    body: JSON.stringify(payloadData),
+  });
+  const _data = await data.json();
+  return _data;
+}
+export async function paymentVerifyApi(payloadData, token) {
+  const data = await fetch(`${baseURL}/payment/paymentVerify`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+    body: JSON.stringify(payloadData),
   });
   const _data = await data.json();
   return _data;

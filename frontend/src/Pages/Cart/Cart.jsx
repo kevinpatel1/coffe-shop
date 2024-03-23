@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DecreaseQuantity,
@@ -8,21 +8,71 @@ import {
 import "./Cart.css";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { allProductApi } from "../../libs/api";
+import { useToasts } from "react-toast-notifications";
+import { MyContext } from "../../hooks/MyContextProvider";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { addToast } = useToasts();
   const { Carts } = useSelector((state) => state._todoProduct);
-  console.log("Carts: ", Carts);
+  const { token } = useContext(MyContext);
 
-  const subtotal = useCallback(() => {
-    let total = Carts.reduce(
-      (acc, item) => acc + item.quantity * item.price,
-      0
-    );
-    console.log(total);
-  }, [Carts]);
+  const [products, setProducts] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [cartsDetails, setCartsDetails] = useState([]);
 
+  const callAPI = useCallback(async () => {
+    try {
+      const apiCall = await allProductApi();
+      console.log("apiCall: ", apiCall);
+      if (apiCall.status === 200) {
+        setProducts(apiCall?.data?.rows);
+      } else {
+        addToast(apiCall.err_msg, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      addToast(error, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  }, [addToast]);
+
+  useEffect(() => {
+    callAPI();
+  }, [callAPI]);
+
+  useEffect(() => {
+    if (products && Carts) {
+      console.log("Carts: ", Carts);
+      let arr = [];
+
+      Carts?.map((er) => {
+        console.log("er: ", er);
+        let checkProduct = products?.find((qw) => qw.id === er?.id);
+
+        // checkProduct.quantity = er?.quantity;
+        if (checkProduct) {
+          arr?.push({ ...checkProduct, quantity: er?.quantity });
+        }
+      });
+      setCartsDetails(arr);
+    }
+  }, [products, Carts, counter]);
+
+  const handleCheckLogin = () => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      navigate("/checkout");
+    }
+  };
   return (
     <div>
       {Carts?.length === 0 ? (
@@ -70,35 +120,49 @@ const Cart = () => {
                       </h4>
                     </div>
                     <div class="col align-self-center text-right text-muted">
-                      {Carts?.length} items
+                      {cartsDetails?.length} items
                     </div>
                   </div>
                 </div>
                 <div className="items-cart-div">
-                  {Carts?.map((items, key) => (
+                  {cartsDetails?.map((items, key) => (
                     <div key={items?.id} class="row border-top border-bottom">
                       <div class="row main align-items-center">
                         <div class="col-2">
                           <img
                             class="img-fluid"
-                            src={`http://localhost:3006/uploads/${items.image}`}
+                            src={`http://localhost:3006/uploads/${items.images}`}
                           />
                         </div>
                         <div class="col">
                           <div class="row text-muted">Coffee</div>
-                          <div class="row">{items?.name}</div>
+                          <div class="row">{items?.productName}</div>
                         </div>
                         <div class="col">
-                          <a onClick={() => dispatch(DecreaseQuantity(key))}>
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              dispatch(DecreaseQuantity(key));
+                              setCounter(counter + 1);
+                            }}
+                          >
                             -
                           </a>
-                          <a class="border">{items?.quantity}</a>
-                          <a onClick={() => dispatch(IncreaseQuantity(key))}>
+                          <a aria-readonly class="border">
+                            {items?.quantity}
+                          </a>
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              dispatch(IncreaseQuantity(key));
+                              setCounter(counter + 1);
+                            }}
+                          >
                             +
                           </a>
                         </div>
                         <div class="col">
-                          &euro; {items?.price * parseInt(items?.quantity)}{" "}
+                          &#8377; {items?.price * parseInt(items?.quantity)}{" "}
                           <span
                             class="close"
                             onClick={() => dispatch(DeleteCart(items))}
@@ -127,11 +191,11 @@ const Cart = () => {
                 <hr />
                 <div class="row">
                   <div class="col" style={{ paddingLeft: 0 }}>
-                    ITEMS {Carts?.length}
+                    ITEMS {cartsDetails?.length}
                   </div>
                   <div class="col text-right">
-                    &euro;{" "}
-                    {Carts.reduce(
+                    &#8377;{" "}
+                    {cartsDetails.reduce(
                       (acc, item) => acc + item.quantity * item.price,
                       0
                     )}
@@ -141,11 +205,9 @@ const Cart = () => {
                   <p>SHIPPING</p>
                   <select>
                     <option class="text-muted">
-                      Standard-Delivery- &euro;5.00
+                      Standard-Delivery- &#8377;5.00
                     </option>
                   </select>
-                  <p>GIVE CODE</p>
-                  <input id="code" placeholder="Enter your code" />
                 </form>
                 <div
                   class="row"
@@ -156,14 +218,21 @@ const Cart = () => {
                 >
                   <div class="col">TOTAL PRICE</div>
                   <div class="col text-right">
-                    &euro;{" "}
-                    {Carts.reduce(
+                    &#8377;{" "}
+                    {cartsDetails.reduce(
                       (acc, item) => acc + item.quantity * item.price,
                       0
                     ) + 5}
                   </div>
                 </div>
-                <button class="btn">CHECKOUT</button>
+                <button
+                  onClick={() => {
+                    handleCheckLogin();
+                  }}
+                  class="btn"
+                >
+                  CHECKOUT
+                </button>
               </div>
             </div>
           </div>

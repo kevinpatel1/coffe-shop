@@ -42,6 +42,8 @@ async function initialize() {
   db.category = require("../models/categoryModel")(sequelize);
   db.stock = require("../models/stockModel")(sequelize);
   db.product = require("../models/productModel")(sequelize);
+  db.order = require("../models/orderModel")(sequelize);
+  db.transaction = require("../models/transactionModel")(sequelize);
 
   await sequelize.sync().catch((err) => {
     console.log(

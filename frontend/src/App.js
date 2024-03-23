@@ -13,6 +13,7 @@ import Contact from "./Pages/Contact/Contact";
 import About from "./Pages/About/About";
 import { ToastProvider } from "react-toast-notifications";
 import { MyContextProvider } from "./hooks/MyContextProvider";
+import CheckOut from "./Pages/CheckOut/CheckOut";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/cart" exact element={<Cart />} />
               <Route path="/contact" exact element={<Contact />} />
               <Route path="/about" exact element={<About />} />
+              <Route path="/checkout" exact element={<CheckOut />} />
             </Route>
             <Route path="/login" exact element={<Login />} />
             <Route path="/register" exact element={<Register />} />

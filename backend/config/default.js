@@ -26,4 +26,13 @@ module.exports = {
   uploads: {
     file_path: "uploads",
   },
+
+  payment: {
+    key_id: "rzp_test_sGTW0EL02VcLfQ",
+    key_secret: "aVLX05TevyjFxY8ZmOsPwULH",
+  },
+  // payment: {
+  //   key_id: "rzp_live_5CxWUSXZYX7Dh4",
+  //   key_secret: "3aYTeMYt6Wo9GLSvR0AhFlrA",
+  // },
 };

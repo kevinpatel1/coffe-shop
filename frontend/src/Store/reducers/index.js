@@ -44,9 +44,6 @@ function todoProduct(state = initProduct, action) {
           let _cart = {
             id: action.payload.id,
             quantity: action.payload.quantity,
-            name: action.payload.productName,
-            image: action.payload.images,
-            price: action.payload.price,
           };
           state.Carts.push(_cart);
         }
