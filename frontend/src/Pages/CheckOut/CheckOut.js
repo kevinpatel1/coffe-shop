@@ -26,6 +26,9 @@ const CheckOut = () => {
   const { Carts } = useSelector((state) => state._todoProduct);
   const [products, setProducts] = useState([]);
   const [cartsDetails, setCartsDetails] = useState([]);
+  const [taxValue, setTaxValue] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
+  const [finalAmount, setFinalAmount] = useState("");
   const { addToast } = useToasts();
   const [inputData, setInputData] = useState({
     email: userDetails?.email,
@@ -79,7 +82,20 @@ const CheckOut = () => {
       setCartsDetails(arr);
     }
   }, [products, Carts]);
+  useEffect(() => {
+    if (cartsDetails) {
+      let totalAmount = cartsDetails.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
 
+      let gstValue = parseFloat(totalAmount * 0.236).toFixed(2);
+
+      setTaxValue(gstValue);
+      setTotalAmount(totalAmount);
+      setFinalAmount(parseFloat(totalAmount + +gstValue).toFixed(2));
+    }
+  }, [cartsDetails]);
   const handleChange = (name, value) => {
     setInputData({ ...inputData, [name]: value });
   };
@@ -91,7 +107,7 @@ const CheckOut = () => {
       0
     );
     try {
-      const apiCall = await paymentOrderApi({ amount: totalAmount }, token);
+      const apiCall = await paymentOrderApi({ amount: finalAmount }, token);
       console.log("apiCall: ", apiCall);
       if (apiCall.status === 200) {
         console.log("apiCall: ", apiCall);
@@ -137,7 +153,9 @@ const CheckOut = () => {
               razorpay_signature: response.razorpay_signature,
               orderDetails: cartsDetails,
               userDetails: inputData,
-              totalPrice: data.amount,
+              totalPrice: totalAmount,
+              finalAmount: finalAmount,
+              taxValue: taxValue,
             },
             token
           );
@@ -338,16 +356,17 @@ const CheckOut = () => {
                     </div>
                   ))}
                 </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6>Sub Total</h6>
+                  <p style={{ fontSize: 20 }}> &#8377; {totalAmount}</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6>Tax Deductions</h6>
+                  <p style={{ fontSize: 20 }}> &#8377; {taxValue}</p>
+                </div>
                 <div class="checkout-total">
-                  <h6>Total</h6>
-                  <p style={{ fontSize: 20 }}>
-                    {" "}
-                    &#8377;{" "}
-                    {cartsDetails.reduce(
-                      (acc, item) => acc + item.quantity * item.price,
-                      0
-                    )}
-                  </p>
+                  <h6>Grand Total</h6>
+                  <p style={{ fontSize: 20 }}> &#8377; {finalAmount}</p>
                 </div>
               </div>
             </section>

@@ -131,7 +131,7 @@ const Login = () => {
 
       <div className="auth-page-content">
         <MetaTags>
-          <title>VMC - Standing Committee</title>
+          <title>Coffee Gable </title>
         </MetaTags>
         <img
           src={BgImage}

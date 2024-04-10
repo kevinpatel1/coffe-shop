@@ -56,4 +56,12 @@ async function initialize() {
     foreignKey: "categoryId",
     as: "category",
   });
+  db.transaction.belongsTo(db.userDetails, {
+    foreignKey: "userId",
+    as: "user",
+  });
+  db.order.belongsTo(db.userDetails, {
+    foreignKey: "userId",
+    as: "user",
+  });
 }

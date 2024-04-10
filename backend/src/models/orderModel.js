@@ -15,6 +15,22 @@ function model(sequelize) {
       type: DataTypes.TEXT("long"),
       required: true,
     },
+    address: {
+      type: DataTypes.TEXT("long"),
+      required: true,
+    },
+    totalPrice: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    taxAmount: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    finalAmount: {
+      type: DataTypes.STRING,
+      required: true,
+    },
     isDeleted: {
       type: DataTypes.BOOLEAN,
       required: true,

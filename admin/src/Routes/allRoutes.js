@@ -9,6 +9,9 @@ import CategoryList from "../pages/Category/CategoryList";
 import ProductList from "../pages/Product/ProductList";
 import StockList from "../pages/Stock/StockList";
 import CustomerList from "../pages/Cutomer/CustomerList";
+import TransactionList from "../pages/Transaction/TransactionList";
+import OrderList from "../pages/Order/OrderList";
+import ViewOrder from "../pages/Order/ViewOrder";
 
 const protectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -16,6 +19,9 @@ const protectedRoutes = [
   { path: "/product", component: ProductList },
   { path: "/stock", component: StockList },
   { path: "/customer", component: CustomerList },
+  { path: "/transcations", component: TransactionList },
+  { path: "/order", component: OrderList },
+  { path: "/vieworder", component: ViewOrder },
 
   // eslint-disable-next-line react/display-name
   {

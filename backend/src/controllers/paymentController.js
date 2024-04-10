@@ -12,7 +12,7 @@ const paymentOrder = async (req, res) => {
   });
 
   const options = {
-    amount: req.body.amount * 100,
+    amount: parseInt(req.body.amount) * 100,
     currency: "INR",
     receipt: `order_receipt_${Date.now()}`,
     payment_capture: 1,
@@ -44,6 +44,31 @@ const verifyOrder = async (req, res) => {
     let newOrderData = {
       userId: req.user?.userId,
       productDetails: JSON.stringify(req.body?.orderDetails),
+      finalAmount: req.body?.finalAmount,
+      taxAmount: req.body?.taxValue,
+      totalPrice: req.body?.totalPrice,
+      address: req.body.userDetails?.postalCode
+        ? req.body.userDetails?.address
+          ? req.body.userDetails?.address +
+            "," +
+            req.body.userDetails?.city +
+            "," +
+            req.body.userDetails?.state +
+            "," +
+            req.body.userDetails?.postalCode
+          : req.body.userDetails?.city +
+            "," +
+            req.body.userDetails?.state +
+            "," +
+            req.body.userDetails?.postalCode
+        : req.body.userDetails?.address
+        ? req.body.userDetails?.address +
+          "," +
+          req.body.userDetails?.city +
+          "," +
+          req.body.userDetails?.state
+        : req.body.userDetails?.city + "," + req.body.userDetails?.state,
+      isDeleted: false,
     };
 
     let addData = await db.order.create(newOrderData);
@@ -52,7 +77,8 @@ const verifyOrder = async (req, res) => {
         userId: req.user?.userId,
         orderId: addData.id,
         paymentId: req.body.razorpay_payment_id,
-        price: req.body.totalPrice,
+        price: req.body.finalAmount,
+        isDeleted: false,
       };
 
       let addTranscatoionData = await db.transaction.create(newTransactionData);

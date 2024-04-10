@@ -20,6 +20,8 @@ const Cart = () => {
   const { token } = useContext(MyContext);
 
   const [products, setProducts] = useState([]);
+  const [taxValue, setTaxValue] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
   const [counter, setCounter] = useState(0);
   const [cartsDetails, setCartsDetails] = useState([]);
 
@@ -62,10 +64,22 @@ const Cart = () => {
           arr?.push({ ...checkProduct, quantity: er?.quantity });
         }
       });
+
       setCartsDetails(arr);
     }
   }, [products, Carts, counter]);
 
+  useEffect(() => {
+    if (cartsDetails) {
+      let totalAmount = cartsDetails.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
+
+      setTaxValue(parseFloat(totalAmount * 0.236).toFixed(2));
+      setTotalAmount(totalAmount);
+    }
+  }, [cartsDetails]);
   const handleCheckLogin = () => {
     if (!token) {
       navigate("/login");
@@ -193,22 +207,17 @@ const Cart = () => {
                   <div class="col" style={{ paddingLeft: 0 }}>
                     ITEMS {cartsDetails?.length}
                   </div>
-                  <div class="col text-right">
-                    &#8377;{" "}
-                    {cartsDetails.reduce(
-                      (acc, item) => acc + item.quantity * item.price,
-                      0
-                    )}
-                  </div>
+                  <div class="col text-right">&#8377; {totalAmount}</div>
                 </div>
-                <form>
-                  <p>SHIPPING</p>
-                  <select>
-                    <option class="text-muted">
-                      Standard-Delivery- &#8377;5.00
-                    </option>
-                  </select>
-                </form>
+
+                <br />
+                <div class="row">
+                  <div class="col" style={{ paddingLeft: 0 }}>
+                    Tax Deductions
+                  </div>
+                  <div class="col text-right">&#8377; {taxValue}</div>
+                </div>
+                <br />
                 <div
                   class="row"
                   style={{
@@ -218,11 +227,7 @@ const Cart = () => {
                 >
                   <div class="col">TOTAL PRICE</div>
                   <div class="col text-right">
-                    &#8377;{" "}
-                    {cartsDetails.reduce(
-                      (acc, item) => acc + item.quantity * item.price,
-                      0
-                    ) + 5}
+                    &#8377; {parseFloat(totalAmount + +taxValue).toFixed(2)}
                   </div>
                 </div>
                 <button

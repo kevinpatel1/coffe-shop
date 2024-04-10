@@ -88,7 +88,7 @@ const menuList = [
   },
   {
     moduleId: 1,
-    label: "Customer Management",
+    label: "Customer Details",
     icon: "asd",
     tabKey: "customer",
     link: "/customer",
@@ -108,6 +108,22 @@ const menuList = [
     icon: "asd",
     tabKey: "transcations",
     link: "/transcations",
+    position: 0,
+    subItems: [],
+    permission: {
+      access: true,
+      create: true,
+      list: true,
+      edit: true,
+      delete: true,
+    },
+  },
+  {
+    moduleId: 1,
+    label: "Order Details",
+    icon: "asd",
+    tabKey: "order",
+    link: "/order",
     position: 0,
     subItems: [],
     permission: {
