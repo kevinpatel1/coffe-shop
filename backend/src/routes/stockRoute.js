@@ -7,11 +7,7 @@ router.post("/store", verifyToken, stockController.stockAdd);
 
 router.get("/list", verifyToken, stockController.stockGetAll);
 
-router.get(
-  "/filter/:size/:page",
-  verifyToken,
-  stockController.stockGetAllFilter
-);
+router.get("/filter", verifyToken, stockController.stockGetAllFilter);
 
 router.get("/list/:id/:size/:page", verifyToken, stockController.stockGetById);
 

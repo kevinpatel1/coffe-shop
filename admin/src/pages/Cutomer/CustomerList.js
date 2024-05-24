@@ -51,7 +51,9 @@ const CustomerList = () => {
         },
       };
       fetch(
-        `${process.env.REACT_APP_API_URL}user/list?size=${limit}&page=${offset}`,
+        `${
+          process.env.REACT_APP_API_URL
+        }user/list?size=${limit}&page=${offset}&name=${query?.name || ""}`,
         requestOptions
       )
         .then((response) => response.json())
@@ -145,6 +147,54 @@ const CustomerList = () => {
     []
   );
 
+  const handleApplyFilter = useCallback(
+    (limit, offset, query) => {
+      const token = localStorage.getItem("token");
+
+      setloading(true);
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      };
+      fetch(
+        `${
+          process.env.REACT_APP_API_URL
+        }user/list?size=${limit}&page=${offset}&name=${query?.name || ""}`,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.err_msg === "Invalid Token") {
+            localStorage.clear();
+            history.push("/logout");
+            // toast.error("Session Expired.", {
+            //   toastId: "sessionerror",
+            // });
+          }
+          if (data.status) {
+            setCustomerDetails(data?.data?.rows);
+            setTotalCount(data?.data?.count);
+            setloading(false);
+          } else {
+            setloading(false);
+            toast.error(data?.message);
+          }
+          setloading(false);
+        })
+        .catch((error) => {
+          setloading(false);
+          setTimeout(() => {
+            toast.error("There was an error, Please try again later.");
+          }, 1000);
+        });
+      // eslint-disable-next-line
+    },
+    // eslint-disable-next-line
+    [history]
+  );
+
   if (loading)
     return (
       <div className="loaderClass" style={{ textAlign: "center" }}>
@@ -168,7 +218,57 @@ const CustomerList = () => {
                 </div>
               </div>
             </CardHeader>
+            <div className="bg-soft-light border border-dashed border-start-0 border-end-0">
+              <Form>
+                <Row className="g-3">
+                  <Col md={4}>
+                    <div className="input-group">
+                      <Input
+                        type="text"
+                        value={query?.name}
+                        onChange={(e) => {
+                          setQuery({ ...query, name: e.target.value });
+                        }}
+                        placeholder="Search for Customer Name"
+                      />
+                    </div>
+                  </Col>
 
+                  <Col md={4}>
+                    <button
+                      type="button"
+                      className="btn-success btn"
+                      id="create-btn"
+                      onClick={() => {
+                        setLimit(10);
+                        setOffset(0);
+                        handleApplyFilter(10, 0, query);
+                      }}
+                    >
+                      <i className="ri-equalizer-fill me-1 align-bottom"></i>
+                      Filter
+                    </button>
+
+                    <button
+                      type="button"
+                      className="btn-danger btn mx-2"
+                      id="create-btn"
+                      onClick={() => {
+                        setQuery({
+                          name: "",
+                        });
+                        getCustomerListApi(10, 0);
+                        setLimit(10);
+                        setOffset(0);
+                      }}
+                    >
+                      <i className="ri-chat-delete-line me-1 align-bottom"></i>
+                      Clear Filter{" "}
+                    </button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
             <div className="mt-5 ">
               {customerDetails && customerDetails?.length > 0 ? (
                 <>

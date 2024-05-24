@@ -186,7 +186,7 @@ const ProductList = () => {
       },
     };
     fetch(
-      `${process.env.REACT_APP_API_URL}product/deleteProduct/${selectedId}`,
+      `${process.env.REACT_APP_API_URL}product/delete/${selectedId}`,
       requestOptions
     )
       .then((response) => response.json())

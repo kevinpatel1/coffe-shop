@@ -101,7 +101,7 @@ async function listById(id, user, size, page) {
   }
 }
 
-async function listByFilter(user, size, page, productId) {
+async function listByFilter(user, size, page, productId, fromDate, toDate) {
   let sqlQuery = {
     isDeleted: false,
   };
@@ -110,9 +110,27 @@ async function listByFilter(user, size, page, productId) {
     sqlQuery.productId = productId;
   }
 
+  if (fromDate) {
+    if (toDate) {
+      sqlQuery = {
+        ...sqlQuery,
+        stockDate: {
+          [Op.between]: [fromDate, toDate], // Replace 'agendaDate' with your actual date field name
+        },
+      };
+    } else {
+      sqlQuery = {
+        ...sqlQuery,
+        stockDate: {
+          [Op.gte]: fromDate, // Greater than or equal to 'fromDate'
+        },
+      };
+    }
+  }
   let limit = parseInt(size);
   let offset = parseInt(page);
 
+  console.log("sqlQuery: ", sqlQuery);
   const list = db.stock.findAndCountAll({
     limit: limit || 5,
     offset: offset || 0,

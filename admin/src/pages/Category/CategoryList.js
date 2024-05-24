@@ -171,7 +171,7 @@ const CategoryList = () => {
       },
     };
     fetch(
-      `${process.env.REACT_APP_API_URL}category/deleteCategory/${selectedId}`,
+      `${process.env.REACT_APP_API_URL}category/delete/${selectedId}`,
       requestOptions
     )
       .then((response) => response.json())

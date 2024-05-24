@@ -389,6 +389,7 @@ const OrderList = () => {
                         setQuery({
                           fromDate: "",
                           toDate: "",
+                          userId: "",
                         });
                         getOrderListApi(10, 0);
                         setLimit(10);

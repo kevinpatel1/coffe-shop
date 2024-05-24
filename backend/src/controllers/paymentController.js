@@ -72,6 +72,7 @@ const verifyOrder = async (req, res) => {
     };
 
     let addData = await db.order.create(newOrderData);
+
     if (addData) {
       let newTransactionData = {
         userId: req.user?.userId,
@@ -82,6 +83,29 @@ const verifyOrder = async (req, res) => {
       };
 
       let addTranscatoionData = await db.transaction.create(newTransactionData);
+
+      for (let index = 0; index < req.body?.orderDetails.length; index++) {
+        const element = req.body?.orderDetails[index];
+
+        let getOldStockDetails = await db.stock.findOne({
+          where: { productId: element.id },
+          order: [["updatedAt", "DESC"]],
+        });
+        console.log("getOldStockDetails: ", getOldStockDetails);
+
+        let newStockData = {
+          productId: element.id,
+          openingBalance: getOldStockDetails.closingBalance,
+          qty: element.quantity,
+          stockDate: new Date(),
+          closingBalance:
+            +getOldStockDetails?.closingBalance - +element.quantity,
+          transactionType: "Outward",
+          isDeleted: false,
+        };
+
+        let addDataStock = await db.stock.create(newStockData);
+      }
     }
 
     let newUserData = {

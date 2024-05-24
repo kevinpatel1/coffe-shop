@@ -137,7 +137,7 @@ const adminUserLogin = async (req, res) => {
 
 const userGetAll = (req, res) => {
   userService
-    .list(req.user, req.query.size, req.query.page)
+    .list(req.user, req.query.size, req.query.page, req.query.name)
     .then((user) => {
       res.status(200).send({
         status: 200,

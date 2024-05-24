@@ -34,10 +34,17 @@ const stockGetAll = (req, res) => {
 };
 
 const stockGetAllFilter = (req, res) => {
-  const { productId } = req.query;
+  const { productId, fromDate, toDate } = req.query;
 
   stockService
-    .listByFilter(req.user, req.params.size, req.params.page, productId)
+    .listByFilter(
+      req.user,
+      req.query.size,
+      req.query.page,
+      productId,
+      fromDate,
+      toDate
+    )
     .then((stock) => {
       res.status(200).send({
         status: 200,

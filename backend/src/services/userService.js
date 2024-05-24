@@ -1,5 +1,6 @@
 const db = require("../db/sequelizeClient");
 const bcrypt = require("bcrypt");
+const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 const { sendEmail } = require("../utils/mail");
@@ -16,6 +17,8 @@ async function register(data) {
     password: passwordHash,
     email: data.email,
     firstName: data.firstName,
+    firstName: data.firstName,
+    lastName: data.lastName,
     lastName: data.lastName,
     role: "customer",
     isDeleted: false,
@@ -63,7 +66,7 @@ async function verifyRegisterLink(data) {
   // }
 }
 
-async function list(user, size, page) {
+async function list(user, size, page, name) {
   let limit = parseInt(size);
   let offset = parseInt(page);
   const sqlQuery = {
@@ -75,7 +78,16 @@ async function list(user, size, page) {
     sqlQuery.limit = limit;
     sqlQuery.offset = offset;
   }
+  if (name) {
+    sqlQuery.where = {
+      [Op.or]: [
+        { lastName: { [Op.like]: `%${name}%` } },
+        { firstName: { [Op.like]: `%${name}%` } },
+      ],
+    };
+  }
 
+  console.log("sqlQuery: ", sqlQuery);
   const list = await db.userDetails.findAndCountAll(sqlQuery);
 
   if (list) {
