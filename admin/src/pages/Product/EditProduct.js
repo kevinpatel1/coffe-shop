@@ -5,6 +5,8 @@ import { Modal, Label, Input, ModalBody, ModalHeader } from "reactstrap";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/react";
 
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Select from "react-select";
 const override = css`
   display: block;
@@ -34,6 +36,7 @@ const EditProduct = (props) => {
   const [productPriceError, setProductPriceError] = useState(false);
   const [productImageError, setProductImageError] = useState(false);
   const [productStockError, setProductStockError] = useState(false);
+  const [show, setShow] = useState(true);
 
   const [loading, setloading] = useState(false);
   let color = "#e9511d";
@@ -114,9 +117,8 @@ const EditProduct = (props) => {
     } else if (stock && stock?.length < 0) {
       setProductStockError(true);
       toast.error("Minimum 1 Characteristics is Required", {});
-    } else if (image === "") {
-      setProductStockError(true);
-      toast.error("Please Select Product Image");
+    } else if (image?.length <= 0) {
+      toast.error("Please Upload Tour Images");
     } else {
       setloading(true);
 
@@ -127,7 +129,18 @@ const EditProduct = (props) => {
       formData.append("productDescription", productDescription);
       formData.append("price", productPrice);
       formData.append("stock", stock);
-      formData.append("image", image);
+      let arr = [];
+      for (let index = 0; index < image.length; index++) {
+        const element = image[index];
+        console.log(typeof element === "object", "element: ", typeof element);
+
+        if (typeof element === "object") {
+          formData.append("image", element);
+        } else {
+          arr?.push(element);
+        }
+      }
+      formData.append("oldImages", JSON.stringify(arr));
 
       const token = localStorage.getItem("token");
       const requestOptions = {
@@ -152,6 +165,7 @@ const EditProduct = (props) => {
           }
 
           if (data.status) {
+            setShow(false);
             history.push("/product");
             setloading(false);
             props.onModalSubmitBtnClk();
@@ -181,7 +195,7 @@ const EditProduct = (props) => {
     <>
       <Modal
         id="showModal"
-        size="md"
+        size="lg"
         isOpen={editProductModal}
         toggle={() => props.onCloseModal()}
         centered
@@ -194,7 +208,7 @@ const EditProduct = (props) => {
         </ModalHeader>
         <ModalBody className="p-3">
           <div className="row gy-3 mb-2">
-            <div className="col-md-12">
+            <div className="col-md-6">
               <div>
                 <Label htmlFor="amount-field" className="form-label">
                   Product Category <span className="required_span">*</span>
@@ -219,9 +233,7 @@ const EditProduct = (props) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row gy-3 mb-2">
-            <div className="col-md-12">
+         <div className="col-md-6">
               <div>
                 <Label htmlFor="amount-field" className="form-label">
                   Product Name <span className="required_span">*</span>
@@ -250,36 +262,26 @@ const EditProduct = (props) => {
               </div>
             </div>
           </div>
-          <div className="row gy-3 mb-2">
-            <div className="col-md-12">
-              <div>
-                <Label htmlFor="amount-field" className="form-label">
-                  Product Description <span className="required_span">*</span>
-                </Label>
-                <div className="input-group">
-                  <Input
-                    type="textarea"
-                    className={`form-control ${
-                      productDescriptionError ? "border-danger" : ""
-                    }`}
-                    placeholder={"Enter a Product Description"}
-                    aria-label=" ProductName"
-                    aria-describedby="basic-addon1"
-                    value={productDescription}
-                    onChange={(e) => {
-                      setProductDescription(e.target.value);
-
-                      if (e.target.value?.length >= 3) {
-                        setProductDescriptionError(false);
-                      } else {
-                        setProductDescriptionError(true);
-                      }
-                    }}
-                  />
+          {show && (
+              <div className="col-md-12">
+                <div>
+                  <Label htmlFor="amount-field" className="form-label">
+                    Product Description <span className="required_span">*</span>
+                  </Label>
+                  <div className="input-group">
+                    <CKEditor
+                      editor={ClassicEditor}
+                      data={productDescription}
+                      name="overview"
+                      onChange={(event, editor) => {
+                        const ipdata = editor.getData();
+                        setProductDescription(ipdata);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            )}
           <div className="row gy-3 mb-2">
             <div className="col-md-6">
               <div>
@@ -339,42 +341,93 @@ const EditProduct = (props) => {
             </div>
           </div>
           <div className="row gy-3 mt-2">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <div>
                 <Label htmlFor="amount-field" className="form-label">
-                  Product Image
+                  Product Images
+                  <span className="required_span">*</span>
                 </Label>
-                <div className="input-group">
+                <div className="input-group flex-column">
                   <div>
                     <Input
                       type="file"
-                      accept="image/png, image/jpg, image/jpeg,"
-                      name="image"
+                      accept="image/png, image/jpg, image/jpeg"
+                      name="images"
+                      multiple
                       onChange={(e) => {
-                        setImage(e.target.files[0]);
-                        setProductImageError(false);
+                        let arr = [
+                          // eslint-disable-next-line
+                          ...image,
+                          ...Array.from(e.target.files),
+                        ];
+
+                        setImage(arr);
                       }}
                     />
                   </div>
                   <div>
-                    {image &&
-                      (typeof image === "object" ? (
-                        <img
-                          src={URL?.createObjectURL(image)}
-                          className="img-thumbnail "
-                          height={100}
-                          width={200}
-                          alt="user-profile"
-                        />
-                      ) : (
-                        <img
-                          src={`${process.env.REACT_APP_Photo_URL}${image}`}
-                          className="img-thumbnail "
-                          height={100}
-                          width={200}
-                          alt="user-profile"
-                        />
-                      ))}
+                    {Object.values(image || {}).map((document, index) => (
+                      <div
+                        className="border rounded border-dashed p-2"
+                        key={index}
+                      >
+                        <div className="d-flex align-items-center">
+                          <div
+                            style={{ cursor: "pointer" }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (typeof document === "object") {
+                                window.open(
+                                  URL?.createObjectURL(document),
+                                  "_blank"
+                                );
+                              } else {
+                                window.open(
+                                  `http://localhost:3006/uploads/${document}`,
+                                  "_blank"
+                                );
+                              }
+                            }}
+                            className="flex-shrink-0 me-3"
+                          >
+                            <div className="avatar-sm">
+                              <div className="avatar-title bg-light text-secondary rounded fs-24">
+                                <i className="ri-folder-zip-line"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex-grow-1 d-flex justify-content-between align-items-center overflow-hidden">
+                            <h5 className="fs-13 mb-1">
+                              {document?.name
+                                ? document?.name
+                                : document?.split("/")[
+                                    document?.split("/")?.length - 1
+                                  ]}
+                            </h5>
+
+                            {/* <div className="d-flex gap-1"> */}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                // eslint-disable-next-line
+                                let arr = [
+                                  // eslint-disable-next-line
+                                  ...image,
+                                ];
+
+                                arr.splice(index, 1);
+
+                                setImage(arr);
+                              }}
+                              className="btn btn-icon text-muted btn-sm fs-18"
+                            >
+                              <i className="ri-delete-bin-line"></i>
+                            </button>
+                            {/* </div> */}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

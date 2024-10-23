@@ -1,7 +1,6 @@
 const config = require("config");
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 const { Sequelize } = require("sequelize");
-
 module.exports = db = {};
 
 initialize();
@@ -17,24 +16,22 @@ async function initialize() {
   });
   await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
 
-  var sequelize = new Sequelize(database, user, password, {
+  const sequelize = new Sequelize(database, user, password, {
     host: host,
     port: port,
+    dialect: "mysql",
     logging: false,
     maxConcurrentQueries: 100,
-    dialect: "mysql",
-    // dialectOptions: {
-    //   ssl: "Amazon RDS",
-    // },
     dialectOptions: {
-      // ssl: {
-      //   require: true,
-      //   rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
-      // },
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
     pool: { maxConnections: 5, maxIdleTime: 30 },
     language: "en",
   });
+
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
 
@@ -44,24 +41,10 @@ async function initialize() {
   db.product = require("../models/productModel")(sequelize);
   db.order = require("../models/orderModel")(sequelize);
   db.transaction = require("../models/transactionModel")(sequelize);
-
-  await sequelize.sync().catch((err) => {
-    console.log(
-      err,
-      "#########################################################################################################################################################################################################################"
-    );
-  });
-
-  db.product.belongsTo(db.category, {
-    foreignKey: "categoryId",
-    as: "category",
-  });
-  db.transaction.belongsTo(db.userDetails, {
-    foreignKey: "userId",
-    as: "user",
-  });
-  db.order.belongsTo(db.userDetails, {
-    foreignKey: "userId",
-    as: "user",
-  });
+  // Sync models with database
+  try {
+    await sequelize.sync();
+  } catch (err) {
+    console.error("Database synchronization error:", err);
+  }
 }

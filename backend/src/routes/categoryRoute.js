@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../controllers/categoryController");
 const { verifyToken } = require("../utils/auth");
+const upload = require("../utils/upload");
 
-router.post("/store", verifyToken, categoryController.categoryAdd);
+router.post("/store",  verifyToken,
+    upload.single("image"),categoryController.categoryAdd);
 
-router.put("/update/:id", verifyToken, categoryController.categoryUpdate);
+router.put("/update/:id", verifyToken,
+    upload.single("image"), categoryController.categoryUpdate);
 
 router.get("/list", categoryController.categoryGetAll);
 

@@ -1,7 +1,7 @@
 const db = require("../db/sequelizeClient");
 const { Op } = require("sequelize");
 
-async function register(data, user) {
+async function register(data, file, user) {
   if (
     await db.category.findOne({
       where: {
@@ -15,6 +15,10 @@ async function register(data, user) {
     categoryName: data.categoryName,
     isDeleted: false,
   };
+
+  if (file) {
+    newData.image = file.filename;
+  }
 
   let addData = await db.category.create(newData);
 }
@@ -85,7 +89,7 @@ async function listByFilter(user, size, page, categoryName) {
   }
 }
 
-async function update(data, id, user) {
+async function update(data, id, file, user) {
   let checkCategory = await db.category.findOne({
     where: { id: id },
   });
@@ -103,6 +107,10 @@ async function update(data, id, user) {
     const newData = {
       categoryName: data.categoryName,
     };
+
+    if (file) {
+      newData.image = file.filename;
+    }
 
     await db.category.update(newData, {
       where: { id: id },

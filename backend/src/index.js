@@ -32,10 +32,10 @@ app.get("/", (req, res) => {
   console.log("asdsad");
   res.send("Products Backend!");
 });
-process.on("unhandledRejection", (error) => {
-  // Will print "unhandledRejection err is not defined"
-  console.log("unhandledRejection", error.message);
-});
+// process.on("unhandledRejection", (error) => {
+//   // Will print "unhandledRejection err is not defined"
+//   console.log("unhandledRejection", error.message);
+// });
 
 const http = require("http").Server(app);
 http.listen(`${port}`, () => {});

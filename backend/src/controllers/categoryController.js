@@ -3,7 +3,7 @@ const categoryService = require("../services/categoryService");
 const categoryAdd = (req, res) => {
   console.log("req.body, req.user: ", req.body, req.user);
   categoryService
-    .register(req.body, req.user)
+    .register(req.body, req.file, req.user)
     .then(() =>
       res.status(200).send({
         status: 200,
@@ -54,7 +54,7 @@ const categoryGetAllFilter = (req, res) => {
 const categoryUpdate = (req, res) => {
   const id = req.params.id;
   categoryService
-    .update(req.body, id, req.user)
+    .update(req.body, id, req.file, req.user)
     .then((category) => {
       res.status(200).send({
         status: 200,

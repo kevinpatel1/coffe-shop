@@ -7,14 +7,14 @@ const upload = require("../utils/upload");
 router.post(
   "/store",
   verifyToken,
-  upload.single("image"),
+  upload.array("image"),
   productController.productAdd
 );
 
 router.put(
   "/update/:id",
   verifyToken,
-  upload.single("image"),
+  upload.array("image"),
   productController.productUpdate
 );
 

@@ -1,7 +1,11 @@
 const db = require("../db/sequelizeClient");
 const { Op } = require("sequelize");
+const fs = require('fs');
+const path = require('path');
+const config = require("config");
+const { file_path } = config.get("uploads");
 
-async function register(data, file, user) {
+async function register(data, files, user) {
   if (
     await db.product.findOne({
       where: {
@@ -17,12 +21,19 @@ async function register(data, file, user) {
     productName: data.productName,
     productDescription: data.productDescription,
     price: data.price,
+    gram: data.gram,
     reviews: data.reviews,
     isDeleted: false,
   };
 
-  if (file) {
-    newData.images = file.filename;
+  if (files) {
+    let arr = [];
+
+    for (let index = 0; index < files.length; index++) {
+      const element = files[index];
+      arr.push(element.filename);
+    }
+    newData.images = JSON.stringify(arr);
   }
 
   let addData = await db.product.create(newData);
@@ -77,7 +88,7 @@ async function list(user, size, page) {
         productDescription: element.productDescription,
         price: element.price,
         category: element.category,
-        images: element.images,
+        images: JSON.parse(element.images || "[]"),
         reviews: element.reviews,
         isDeleted: element.isDeleted,
       };
@@ -96,7 +107,8 @@ async function list(user, size, page) {
   }
 }
 
-async function update(data, id, file, user) {
+
+async function update(data, id, files, user) {
   let checkProduct = await db.product.findOne({
     where: { id: id },
   });
@@ -111,6 +123,8 @@ async function update(data, id, file, user) {
       }
     }
 
+    // Delete the removed images from the uploads folder
+
     const newData = {
       categoryId: data.categoryId,
       productName: data.productName,
@@ -119,10 +133,36 @@ async function update(data, id, file, user) {
       reviews: data.reviews,
       isDeleted: false,
     };
+    // Parse old images
+    let arr = JSON.parse(data?.oldImages || "[]");
 
-    if (file) {
-      newData.images = file.filename;
+    // Handle uploaded files
+    if (files) {
+      let uploadedFiles = [];
+      for (let index = 0; index < files.length; index++) {
+        const element = files[index];
+        uploadedFiles.push(element.filename);
+      }
+      arr = arr.concat(uploadedFiles); // Add new uploaded files to the image array
     }
+
+    // Delete the removed images from the uploads folder
+    const currentImages = JSON.parse(checkProduct.images || "[]");
+    const removedImages = currentImages.filter((image) => !arr.includes(image));
+
+    removedImages.forEach((image) => {
+      const filePath = path.join(file_path, image); // Adjust your upload folder path accordingly
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(`Failed to delete file: ${filePath}`, err);
+        } else {
+          console.log(`Successfully deleted file: ${filePath}`);
+        }
+      });
+    });
+
+    // Update the product's images
+    newData.images = JSON.stringify(arr);
 
     await db.product.update(newData, {
       where: { id: id },
@@ -177,17 +217,18 @@ async function listByCategoryId(categoryId, user, size, page) {
         productName: element.productName,
         productDescription: element.productDescription,
         price: element.price,
+        gram: element.gram,
         images: element.images,
         reviews: element.reviews,
         isDeleted: element.isDeleted,
       };
 
-      const stockDetails = await db.stock.findOne({
-        where: { productId: element.id, isDeleted: false },
-        order: [["updatedAt", "DESC"]],
-      });
+      // const stockDetails = await db.stock.findOne({
+      //   where: { productId: element.id, isDeleted: false },
+      //   order: [["updatedAt", "DESC"]],
+      // });
 
-      obj.stock = stockDetails.closingBalance;
+      // obj.stock = stockDetails.closingBalance;
 
       finalResponse.rows.push(obj);
     }

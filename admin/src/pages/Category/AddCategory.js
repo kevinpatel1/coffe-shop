@@ -23,6 +23,7 @@ const AddCategory = (props) => {
   const [categoryNameError, setCategoryNameError] = useState(false);
 
   const { getTranslationData } = TranslateData();
+  const [image, setImage] = useState("");
   const [visible, setVisible] = useState(false);
   const [loading, setloading] = useState(false);
   let color = "#e9511d";
@@ -42,21 +43,24 @@ const AddCategory = (props) => {
       });
 
       setVisible(false);
+    } else if (image === "") {
+      toast.error("Please Select Product Image");
     } else {
       setloading(true);
       setVisible(true);
 
-      let formData = {
-        categoryName: categoryName,
-      };
+      let formData = new FormData();
+
+      formData.append("categoryName", categoryName);
+      formData.append("image", image);
 
       const token = localStorage.getItem("token");
       const requestOptions = {
         method: "POST",
-        body: JSON.stringify(formData),
+        body: formData,
         headers: {
           Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
         },
       };
       fetch(`${process.env.REACT_APP_API_URL}category/store`, requestOptions)
@@ -80,7 +84,7 @@ const AddCategory = (props) => {
           } else {
             setVisible(false);
             setloading(false);
-            toast.error(data?.message);
+            toast.error(data?.err_msg);
           }
         })
         .catch((error) => {
@@ -137,6 +141,38 @@ const AddCategory = (props) => {
                       }
                     }}
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row gy-3 mt-2">
+            <div className="col-md-6">
+              <div>
+                <Label htmlFor="amount-field" className="form-label">
+                  Product Image
+                </Label>
+                <div className="input-group">
+                  <div>
+                    <Input
+                      type="file"
+                      accept="image/png, image/jpg, image/jpeg,"
+                      name="image"
+                      onChange={(e) => {
+                        setImage(e.target.files[0]);
+                      }}
+                    />
+                  </div>
+                  <div>
+                    {image && (
+                      <img
+                        src={URL?.createObjectURL(image)}
+                        className="img-thumbnail "
+                        height={100}
+                        width={200}
+                        alt="user-profile"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

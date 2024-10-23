@@ -15,6 +15,10 @@ function model(sequelize) {
       type: DataTypes.STRING,
       required: true,
     },
+    gram: {
+      type: DataTypes.STRING,
+      required: true,
+    },
     productDescription: {
       type: DataTypes.STRING,
       required: true,
@@ -37,9 +41,15 @@ function model(sequelize) {
     },
   };
 
-  return sequelize.define("product", attributes, {
+  const Product = sequelize.define("product", attributes, {
     freezeTableName: true,
   });
+
+  Product.belongsTo(sequelize.models.category, {
+    foreignKey: "categoryId",
+    as: "category",
+  });
+  return Product;
 }
 
 module.exports = model;

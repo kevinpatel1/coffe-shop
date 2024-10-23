@@ -11,6 +11,10 @@ function model(sequelize) {
       type: DataTypes.STRING,
       required: true,
     },
+    image: {
+      type: DataTypes.STRING,
+      required: true,
+    },
     isDeleted: {
       type: DataTypes.BOOLEAN,
       required: true,

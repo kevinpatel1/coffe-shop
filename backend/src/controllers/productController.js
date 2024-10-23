@@ -2,7 +2,7 @@ const productService = require("../services/productService");
 
 const productAdd = (req, res) => {
   productService
-    .register(req.body, req.file, req.user)
+    .register(req.body, req.files, req.user)
     .then(() =>
       res.status(200).send({
         status: 200,
@@ -26,6 +26,7 @@ const productGetAll = (req, res) => {
       });
     })
     .catch((err) => {
+      console.log('err: ', err);
       res.status(400).send({
         err_msg: err.message,
       });
@@ -55,7 +56,7 @@ const productGetAllByCategoryId = (req, res) => {
 const productUpdate = (req, res) => {
   const id = req.params.id;
   productService
-    .update(req.body, id, req.file, req.user)
+    .update(req.body, id, req.files, req.user)
     .then((product) => {
       res.status(200).send({
         status: 200,

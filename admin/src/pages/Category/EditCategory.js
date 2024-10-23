@@ -19,6 +19,7 @@ const EditCategory = (props) => {
   const history = useHistory();
   const { row, editCategoryModal } = props;
   const [categoryName, setCategoryName] = useState(row?.categoryName);
+  const [image, setImage] = useState(row?.image);
   const [categoryNameError, setCategoryNameError] = useState(false);
 
   const { getTranslationData } = TranslateData();
@@ -45,17 +46,17 @@ const EditCategory = (props) => {
       setloading(true);
       setVisible(true);
 
-      let formData = {
-        categoryName: categoryName,
-      };
+      let formData = new FormData();
+
+      formData.append("categoryName", categoryName);
+      formData.append("image", image);
 
       const token = localStorage.getItem("token");
       const requestOptions = {
         method: "PUT",
-        body: JSON.stringify(formData),
+        body: formData,
         headers: {
           Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
         },
       };
       fetch(
@@ -82,7 +83,7 @@ const EditCategory = (props) => {
           } else {
             setVisible(false);
             setloading(false);
-            toast.error(data?.message);
+            toast.error(data?.err_msg);
           }
         })
         .catch((error) => {
@@ -110,7 +111,7 @@ const EditCategory = (props) => {
           className="p-3 bg-soft-success"
           toggle={() => props.onCloseModal()}
         >
-          Add Category
+          Edit Category
         </ModalHeader>
         <ModalBody className="p-3">
           <div className="row gy-3 mb-2">
@@ -139,6 +140,47 @@ const EditCategory = (props) => {
                       }
                     }}
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row gy-3 mt-2">
+            <div className="col-md-6">
+              <div>
+                <Label htmlFor="amount-field" className="form-label">
+                  Product Image
+                </Label>
+                <div className="input-group">
+                  <div>
+                    <Input
+                      type="file"
+                      accept="image/png, image/jpg, image/jpeg,"
+                      name="image"
+                      onChange={(e) => {
+                        setImage(e.target.files[0]);
+                      }}
+                    />
+                  </div>
+                  <div>
+                    {image &&
+                      (typeof image === "object" ? (
+                        <img
+                          src={URL?.createObjectURL(image)}
+                          className="img-thumbnail "
+                          height={100}
+                          width={200}
+                          alt="user-profile"
+                        />
+                      ) : (
+                        <img
+                          src={`${process.env.REACT_APP_Photo_URL}${image}`}
+                          className="img-thumbnail "
+                          height={100}
+                          width={200}
+                          alt="user-profile"
+                        />
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>
